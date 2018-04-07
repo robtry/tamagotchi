@@ -1,1 +1,5 @@
 # Instrucciones para crear un canvas
+1- Asegurarse que la matriz sea de 35 renglones * 35 columnas
+2- Usar el java matrizGenerador > carpeta/status.txt para generar un canvas de esa dimesion
+3- 0 = blanco
+4- 1 = negro

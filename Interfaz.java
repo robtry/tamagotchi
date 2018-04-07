@@ -8,9 +8,9 @@ public class Interfaz extends JFrame // extends por que es una clase que hereda 
 {
 	private static final long serialVersionUID = 1L;
 
-	//definir tamaño del canvas
-	private int ancho = 350;
-	private int largo = 450;
+	//definir tamaño del canvas. Si se cambian las dimesiones cambiar todos los dibujos
+	private int largo = 475; //35 cuadritos || filas
+	private int ancho = 350; //35 cuadritos || columnas
 
 	public Interfaz() // constructor
 	{
@@ -25,18 +25,33 @@ public class Interfaz extends JFrame // extends por que es una clase que hereda 
 	{
 		if(Tamagotchi.petExists())
 		{
+			//ya existe un pet hay que dibujarlo como estaba para continuar
+
 			BufferedReader br = null;
 			FileReader fr = null;
-			String sCurrentLine;
+			String currentLine;
+			String fileToDraw = Tamagotchi.getStatus();
+			Byte i = 0;
+			String[] columns;
 
 			try
 			{
-				fr = new FileReader("petsDraws/dog/main.txt");
+				fr = new FileReader(fileToDraw);
 				br = new BufferedReader(fr);
 
-				while ((sCurrentLine = br.readLine()) != null)
+				super.paint(g);
+
+				while ((currentLine = br.readLine()) != null)
 				{
-					System.out.println(sCurrentLine);
+					columns = currentLine.split("");
+					for(int j = 0; j < columns.length; j++)
+					{
+						//g.setColor(Color.red);
+						//drawRect(x,y,width,heigth);
+						g.drawRect (10*j, 10*i+24, 10,10);
+						//g.fillRect (10*j, 10*i+24, 10,10);
+					}
+					i++;
 				}
 			}
 			catch (IOException e)
@@ -59,19 +74,10 @@ public class Interfaz extends JFrame // extends por que es una clase que hereda 
 				}
 			}
 		}
-
-		super.paint(g);
-		int anchoTimes = getWidth()/10;
-		int largoTimes = getHeight()/10;
-		for(int i  = 0; i < anchoTimes; i++)
+		else
 		{
-			for(int j = 1; j <= largoTimes; j++)
-			{
-				//drawRect(x,y,width,heigth)
-				//g.setColor(Color.red);
-				g.drawRect (10*i, 10*j+10, 10,10);
-				//g.fillRect(10*i, 10*j+20, 10,10);
-			}
+			//no  hay nada creado, hay que empezar con el pet
+			//funcion menu() o algo parecido
 		}
 
 	}

@@ -8,4 +8,14 @@ public class Tamagotchi
 		// función dice si ya hay una mascota inicializada o hay que crear una nueva
 		return true;
 	}
+
+	public static String getStatus()
+	{
+		return getKindOfPet() + "main.txt";
+	}
+
+	private static String getKindOfPet()
+	{
+		return "petsDraws/ball/";
+	}
 }
