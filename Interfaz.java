@@ -13,9 +13,10 @@ public class Interfaz extends JFrame // extends por que es una clase que hereda 
 	private static final long serialVersionUID = 1L;
 
 	//NO CAMBIAR LAS DIMENSIONES!
-	private final int largo = 460; //35 cuadritos || filas
-	private final int ancho = 350; //35 cuadritos || columnas
-	private JPanel containerOptions, containerButtons;
+	private final short largo = 450; //35 cuadritos || filas
+	private final short ancho = 350; //35 cuadritos || columnas
+	private JPanel containerOptions, containerTags;
+	public JLabel selectedButtonTag, pressedButtonTag;
 	private ArrayList<JButton> optionBtns= new ArrayList<JButton>();
 	private final String[] images = {"eat", //eatBtn[0]
 	                                  "bulb", //sleepBtn[1]
@@ -25,6 +26,7 @@ public class Interfaz extends JFrame // extends por que es una clase que hereda 
 																		"talk", //talkBtn [5]
 																		"measurer", //statusBtn [6]
 																		"suggestion", //needBtn [7]
+																		"help" // helpBtn [8]
 																		};
 
 	public Interfaz() // constructor
@@ -32,19 +34,15 @@ public class Interfaz extends JFrame // extends por que es una clase que hereda 
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);// para que se termine la execución cuando se cierra
 		setResizable(false);// desabilita la opción de cambiar tamaño
 		setSize(ancho, largo);// establecer tamaño
-		setLayout(new FlowLayout());//flujo en el que ordena elementos
-
-		if(Tamagotchi.petExists())
-			setTitle(Tamagotchi.getName()); //titulo de la ventana
-		else
-			setTitle("!pet");
+		//setLayout(new FlowLayout());//flujo en el que ordena elementos, esta comentado para que el panel de abajo coloree todo
 
 		//agregar los botones
 		BufferedImage img;
 		containerOptions = new JPanel();
-		//containerOptions.setBackground(new Color(53, 56, 64));
+		//containerOptions.setBackground(new Color(160, 178, 129));
+		containerOptions.setBackground(new Color(193, 205, 172));
 		containerOptions.setLayout(new FlowLayout());
-			for(int i = 0; i < 8; i++) // 8 botones
+			for(int i = 0; i < 9; i++) // 9 botones
 			{
 				optionBtns.add(new JButton());
 				optionBtns.get(i).setPreferredSize(new Dimension(30, 30));
@@ -64,7 +62,29 @@ public class Interfaz extends JFrame // extends por que es una clase que hereda 
 				}
 			}
 
+		//agregar etiquetas de abajo
+		containerTags = new JPanel();
+			containerTags.setBackground(new Color(193, 205, 172)); // para que sea igual que arriba
+			selectedButtonTag = new JLabel();
+			pressedButtonTag = new JLabel();
+			containerTags.setLayout(new GridLayout(1,2));//ordenar 1 fila * 2 columnas
+		containerTags.add(selectedButtonTag);
+		containerTags.add(pressedButtonTag);
+
+		if(Tamagotchi.petExists())
+		{
+			setTitle(Tamagotchi.getName()); //titulo de la ventana
+			optionBtns.get(6).setEnabled(true);
+			selectedButtonTag.setText(images[6]);
+		}
+		else
+		{
+			setTitle("!pet");
+			selectedButtonTag.setText("Elige una mascota");
+		}
+
 		add(containerOptions);
+		add(containerTags, BorderLayout.SOUTH);
 
 		setVisible(true);// para que sea visible
 	}
@@ -78,16 +98,12 @@ public class Interfaz extends JFrame // extends por que es una clase que hereda 
 			BufferedReader br = null;
 			String currentLine;
 			String fileToDraw;
-			byte ifilas = 0;
+			byte ifilas = 5;
 			String[] columns;
 
 			try
 			{
 				super.paint(g);
-				//botones de arriba se contruyen solos
-				optionBtns.get(6).setEnabled(true);
-
-				ifilas = 5;
 
 				//todo el pet
 				fileToDraw = Tamagotchi.getStatus();
@@ -105,10 +121,6 @@ public class Interfaz extends JFrame // extends por que es una clase que hereda 
 					}
 					ifilas++;
 				}
-
-				//botones de abajo
-
-
 			}
 			catch (IOException e)
 			{
@@ -133,4 +145,5 @@ public class Interfaz extends JFrame // extends por que es una clase que hereda 
 			//funcion menu() o algo parecido
 		}
 	}
+
 }

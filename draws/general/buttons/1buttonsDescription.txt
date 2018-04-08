@@ -6,4 +6,3 @@ medicina => salud
 bañar => salud
 disciplina => amor
 caractiristicas => edad, peso, felicidad, hambre, diciplina, amor
-//ver si convienen meterlos en un arreglo
