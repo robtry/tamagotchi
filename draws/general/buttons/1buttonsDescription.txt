@@ -1,0 +1,8 @@
+//https://youtu.be/oTqmnNmX5eg
+alimentación => hambre
+luz => para dormir
+juego => diversion
+medicina => salud
+bañar => salud
+disciplina => amor
+caractiristicas => edad, peso, felicidad, hambre, diciplina, amor

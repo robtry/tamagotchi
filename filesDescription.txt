@@ -5,6 +5,6 @@
 * Main.java =>  "Donde se ejecuta todo";
 * filesDescription.txt => this;
 
-* petsDraws => "Contiene los archivos que dibujan las mascotas";
+* draws => "Contiene los archivos que dibujan las mascotas";
 ** matrizGenerator => "archivo de java para generar matrices vacias con las dimensiones correctas";
 ** read me.txt => "settings sobre los dibujos";

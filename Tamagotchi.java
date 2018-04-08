@@ -16,6 +16,12 @@ public class Tamagotchi
 
 	private static String getKindOfPet()
 	{
-		return "petsDraws/ball/";
+		return "draws/ball/";
+	}
+
+	public static String getName()
+	{
+		return "Coquito";
+		//return this.name;
 	}
 }
