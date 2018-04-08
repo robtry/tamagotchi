@@ -6,100 +6,65 @@ import java.io.FileReader; // leer archivos
 import java.io.BufferedReader; // leer archivos
 import java.awt.image.BufferedImage; //leer imagenes
 import java.io.IOException; //excepciones
+import java.util.ArrayList; // meter los botones
 
 public class Interfaz extends JFrame // extends por que es una clase que hereda de Jframe
 {
 	private static final long serialVersionUID = 1L;
 
 	//NO CAMBIAR LAS DIMENSIONES!
-	private int largo = 460; //35 cuadritos || filas
-	private int ancho = 350; //35 cuadritos || columnas
-	private JPanel containerButtons;
-	private JButton
-		eatBtn,
-		sleepBtn,
-		playBtn,
-		medicineBtn,
-		showerBtn,
-		talkBtn,
-		needBtn,
-		statusBtn;
+	private final int largo = 460; //35 cuadritos || filas
+	private final int ancho = 350; //35 cuadritos || columnas
+	private JPanel containerOptions, containerButtons;
+	private ArrayList<JButton> optionBtns= new ArrayList<JButton>();
+	private final String[] images = {"eat", //eatBtn[0]
+	                                  "bulb", //sleepBtn[1]
+																		"play", //playBtn [2]
+																		"syringe", //medicineBtn [3]
+																		"shower", //showerBtn [4]
+																		"talk", //talkBtn [5]
+																		"measurer", //statusBtn [6]
+																		"suggestion", //needBtn [7]
+																		};
 
 	public Interfaz() // constructor
 	{
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);// para que se termine la execución cuando se cierra
 		setResizable(false);// desabilita la opción de cambiar tamaño
 		setSize(ancho, largo);// establecer tamaño
+		setLayout(new FlowLayout());//flujo en el que ordena elementos
+
 		if(Tamagotchi.petExists())
 			setTitle(Tamagotchi.getName()); //titulo de la ventana
 		else
 			setTitle("!pet");
+
 		//agregar los botones
-		containerButtons = new JPanel();
-		//containerButtons.setBackground(new Color(53, 56, 64));
-		containerButtons.setLayout(new FlowLayout());
-			eatBtn = new JButton();
-			sleepBtn = new JButton();
-			playBtn = new JButton();
-			medicineBtn = new JButton();
-			showerBtn = new JButton();
-			talkBtn = new JButton();
-			needBtn = new JButton();
-			statusBtn = new JButton();
-			BufferedImage img;
-			try
+		BufferedImage img;
+		containerOptions = new JPanel();
+		//containerOptions.setBackground(new Color(53, 56, 64));
+		containerOptions.setLayout(new FlowLayout());
+			for(int i = 0; i < 8; i++) // 8 botones
 			{
-				img = ImageIO.read(new File("draws/general/buttons/eat.png"));
-				eatBtn.setIcon(new ImageIcon(img));
-				img = ImageIO.read(new File("draws/general/buttons/measurer.png"));
-				statusBtn.setIcon(new ImageIcon(img));
-				img = ImageIO.read(new File("draws/general/buttons/play.png"));
-				playBtn.setIcon(new ImageIcon(img));
-				img = ImageIO.read(new File("draws/general/buttons/shower.png"));
-				showerBtn.setIcon(new ImageIcon(img));
-				img = ImageIO.read(new File("draws/general/buttons/syringe.png"));
-				medicineBtn.setIcon(new ImageIcon(img));
-				img = ImageIO.read(new File("draws/general/buttons/bulb.png"));
-				sleepBtn.setIcon(new ImageIcon(img));
-				img = ImageIO.read(new File("draws/general/buttons/suggestion.png"));
-				needBtn.setIcon(new ImageIcon(img));
-				img = ImageIO.read(new File("draws/general/buttons/talk.png"));
-				talkBtn.setIcon(new ImageIcon(img));
-			}
-			catch (IOException ex)
-			{
-				System.out.println(ex);
+				optionBtns.add(new JButton());
+				optionBtns.get(i).setPreferredSize(new Dimension(30, 30));
+				optionBtns.get(i).setEnabled(false);
+				optionBtns.get(i).setBorder(null);
+				optionBtns.get(i).setFocusPainted(false);
+				optionBtns.get(i).setContentAreaFilled(false);
+				containerOptions.add(optionBtns.get(i));
+				try
+				{
+					img = ImageIO.read(new File("draws/general/buttons/"+images[i]+".png"));
+					optionBtns.get(i).setIcon(new ImageIcon(img));
+				}
+				catch (IOException ex)
+				{
+					System.out.println(ex);
+				}
 			}
 
-			eatBtn.setPreferredSize(new Dimension(30, 30));
-			sleepBtn.setPreferredSize(new Dimension(30, 30));
-			playBtn.setPreferredSize(new Dimension(30, 30));
-			medicineBtn.setPreferredSize(new Dimension(30, 30));
-			showerBtn.setPreferredSize(new Dimension(30, 30));
-			talkBtn.setPreferredSize(new Dimension(30, 30));
-			statusBtn.setPreferredSize(new Dimension(30, 30));
-			needBtn.setPreferredSize(new Dimension(30, 30));
-
-			//eatBtn.setEnabled(false);
-			//sleepBtn.setEnabled(false);
-			//playBtn.setEnabled(false);
-			//medicineBtn.setEnabled(false);
-			//showerBtn.setEnabled(false);
-			//talkBtn.setEnabled(false);
-			//statusBtn.setEnabled(false);
-			//needBtn.setEnabled(false);
-
-		containerButtons.add(eatBtn);
-		containerButtons.add(sleepBtn);
-		containerButtons.add(playBtn);
-		containerButtons.add(medicineBtn);
-		containerButtons.add(showerBtn);
-		containerButtons.add(talkBtn);
-		containerButtons.add(statusBtn);
-		containerButtons.add(needBtn);
-
-		setLayout(new FlowLayout());//flujo en el que ordena elementos
-		add(containerButtons);
+		add(containerOptions);
 
 		setVisible(true);// para que sea visible
 	}
@@ -120,7 +85,7 @@ public class Interfaz extends JFrame // extends por que es una clase que hereda 
 			{
 				super.paint(g);
 				//botones de arriba se contruyen solos
-				statusBtn.setEnabled(true);
+				optionBtns.get(6).setEnabled(true);
 
 				ifilas = 5;
 

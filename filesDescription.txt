@@ -8,3 +8,5 @@
 * draws => "Contiene los archivos que dibujan las mascotas";
 ** matrizGenerator => "archivo de java para generar matrices vacias con las dimensiones correctas";
 ** read me.txt => "settings sobre los dibujos";
+
+* currentPet => "Contendrá los archivos sobre los cuales se escribiran los estados encriptados del pet"
