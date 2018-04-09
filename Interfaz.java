@@ -114,10 +114,15 @@ public class Interfaz extends JFrame // extends por que es una clase que hereda 
 					columns = currentLine.split("");
 					for(byte j = 0; j < columns.length; j++)
 					{
-						//g.setColor(Color.red);
+						if(columns[j].equals("0"))
+							g.setColor(new Color(160, 178, 129));
+						else
+							g.setColor(Color.black);
 						//drawRect(x,y,width,heigth);
+						g.fillRect (10*j, 10*ifilas+24, 10,10);
+
+						g.setColor(Color.black);
 						g.drawRect (10*j, 10*ifilas+24, 10,10);
-						//g.fillRect (10*j, 10*i+24, 10,10);
 					}
 					ifilas++;
 				}
