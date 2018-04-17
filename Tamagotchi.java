@@ -1,6 +1,6 @@
 
 
-public class Tamagotchi
+public class Tamagotchi extends Pet
 {
 	//esta debe ser la clase padre, las que hereden seran los diferentes tipos de tamagochis
 	public static boolean petExists()

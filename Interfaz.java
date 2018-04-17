@@ -161,7 +161,8 @@ public class Interfaz extends JFrame implements KeyListener // extends por que e
 	public void keyTyped(KeyEvent e) { }
 
 	@Override
-	public void keyPressed(KeyEvent e) {
+	public void keyPressed(KeyEvent e)
+	{
 
 		byte temp = currenrBtn;
 
@@ -188,7 +189,17 @@ public class Interfaz extends JFrame implements KeyListener // extends por que e
 	}
 
 	@Override
-	public void keyReleased(KeyEvent e) { }
+	public void keyReleased(KeyEvent e)
+	{
+		if( e.getKeyCode() == KeyEvent.VK_UP)
+		{
+			System.out.println("entrando");
+		}
+		else  if( e.getKeyCode() == KeyEvent.VK_DOWN)
+		{
+			System.out.println("saliendo");
+		}
+	}
 
 }
 //https://docs.oracle.com/javase/tutorial/uiswing/painting/closer.html
