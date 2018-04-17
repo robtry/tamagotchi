@@ -6,7 +6,7 @@ class matrizGenerador
 		{
 			for(int j = 0; j < 35; j++)
 			{
-				System.out.print("0");
+				System.out.print("0 ");
 			}
 			System.out.println();
 		}

@@ -7,8 +7,10 @@ import java.io.BufferedReader; // leer archivos
 import java.awt.image.BufferedImage; //leer imagenes
 import java.io.IOException; //excepciones
 import java.util.ArrayList; // meter los botones
+import java.awt.event.KeyListener;//cuando el usuario presione teclas
+import java.awt.event.KeyEvent;//eventos de las teclas
 
-public class Interfaz extends JFrame // extends por que es una clase que hereda de Jframe
+public class Interfaz extends JFrame implements KeyListener // extends por que es una clase que hereda de Jframe
 {
 	private static final long serialVersionUID = 1L;
 
@@ -19,15 +21,16 @@ public class Interfaz extends JFrame // extends por que es una clase que hereda 
 	public JLabel selectedButtonTag, pressedButtonTag;
 	private ArrayList<JButton> optionBtns= new ArrayList<JButton>();
 	private final String[] images = {"eat", //eatBtn[0]
-	                                  "bulb", //sleepBtn[1]
-																		"play", //playBtn [2]
-																		"syringe", //medicineBtn [3]
-																		"shower", //showerBtn [4]
-																		"talk", //talkBtn [5]
-																		"measurer", //statusBtn [6]
-																		"suggestion", //needBtn [7]
-																		"help" // helpBtn [8]
-																		};
+									  "bulb", //sleepBtn[1]
+									  "play", //playBtn [2]
+									  "syringe", //medicineBtn [3]
+									  "shower", //showerBtn [4]
+									  "talk", //talkBtn [5]
+									  "measurer", //statusBtn [6]
+									  "suggestion", //needBtn [7]
+									  "help" // helpBtn [8]
+									 };
+	private byte currenrBtn;
 
 	public Interfaz() // constructor
 	{
@@ -42,7 +45,7 @@ public class Interfaz extends JFrame // extends por que es una clase que hereda 
 		//containerOptions.setBackground(new Color(160, 178, 129));
 		containerOptions.setBackground(new Color(193, 205, 172));
 		containerOptions.setLayout(new FlowLayout());
-			for(int i = 0; i < 9; i++) // 9 botones
+			for(int i = 0; i < images.length; i++) // 9 botones
 			{
 				optionBtns.add(new JButton());
 				optionBtns.get(i).setPreferredSize(new Dimension(30, 30));
@@ -73,9 +76,10 @@ public class Interfaz extends JFrame // extends por que es una clase que hereda 
 
 		if(Tamagotchi.petExists())
 		{
+			currenrBtn = 6;
 			setTitle(Tamagotchi.getName()); //titulo de la ventana
-			optionBtns.get(6).setEnabled(true);
-			selectedButtonTag.setText(images[6]);
+			optionBtns.get(currenrBtn).setEnabled(true);
+			selectedButtonTag.setText(images[currenrBtn]);
 		}
 		else
 		{
@@ -87,6 +91,8 @@ public class Interfaz extends JFrame // extends por que es una clase que hereda 
 		add(containerTags, BorderLayout.SOUTH);
 
 		setVisible(true);// para que sea visible
+		addKeyListener(this);// para que lea desde el teclado
+		setFocusable(true);//para que el panel sea quien lee las teclas
 	}
 
 	public void paint(Graphics g)
@@ -111,7 +117,7 @@ public class Interfaz extends JFrame // extends por que es una clase que hereda 
 
 				while ((currentLine = br.readLine()) != null)
 				{
-					columns = currentLine.split("");
+					columns = currentLine.split(" ");
 					for(byte j = 0; j < columns.length; j++)
 					{
 						if(columns[j].equals("0"))
@@ -151,4 +157,38 @@ public class Interfaz extends JFrame // extends por que es una clase que hereda 
 		}
 	}
 
+	@Override
+	public void keyTyped(KeyEvent e) { }
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+
+		byte temp = currenrBtn;
+
+		if (e.getKeyCode() == KeyEvent.VK_RIGHT)
+		{
+			if(currenrBtn == images.length-1)
+				currenrBtn = 0;
+			else
+				currenrBtn++;
+
+		}
+		else if (e.getKeyCode() == KeyEvent.VK_LEFT)
+		{
+			if(currenrBtn == 0)
+				currenrBtn = (byte)(images.length-1);
+			else
+				currenrBtn--;
+		}
+
+		optionBtns.get(temp).setEnabled(false);
+		optionBtns.get(currenrBtn).setEnabled(true);
+		selectedButtonTag.setText(images[currenrBtn]);
+
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) { }
+
 }
+//https://docs.oracle.com/javase/tutorial/uiswing/painting/closer.html
