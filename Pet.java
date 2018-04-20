@@ -5,7 +5,7 @@ public abstract class Pet
 {
 	protected String name;
 	protected int age;
-	protected double weigth;
+	protected double weight;
 	protected int[] status;
 	private String kind;
 
@@ -13,7 +13,7 @@ public abstract class Pet
 	{
 		this.name = name;
 		age = 0; //days
-		weigth = 0.100; // kg
+		weight = 0.100; // kg
 		this.kind = kind;
 
 		Random rndm = new Random();
@@ -72,11 +72,16 @@ public abstract class Pet
 	}
 
 	abstract void eat();
+	abstract void gettingHungry();
 	abstract void sleep();
+	abstract void gettingSleepy();
 	abstract void health();
+	abstract void gettingSick();
 	abstract void love();
-	abstract void funny();
+	abstract void gettingLonely();
 	abstract void dicipline();
+	abstract void gettingUndisciplined();
 	abstract void play();
+	abstract void gettingBored();
 	abstract String getStatus();
 }
