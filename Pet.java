@@ -1,14 +1,20 @@
 import java.util.Random;
+import java.io.File; // buscar la carpeta
+
 public abstract class Pet
 {
-	private String name;
-	private int age;
-	private int[] status;
+	protected String name;
+	protected int age;
+	protected double weigth;
+	protected int[] status;
+	private String kind;
 
-	Pet(String name, int age)
+	Pet(String name, String kind)
 	{
 		this.name = name;
-		this.age = age;
+		age = 0; //days
+		weigth = 0.100; // kg
+		this.kind = kind;
 
 		Random rndm = new Random();
 		status = new int[6];
@@ -19,13 +25,28 @@ public abstract class Pet
 		status[4] = rndm.nextInt(30);  //diversion[4]
 		status[5] = rndm.nextInt(15); //diciplina[5]
 
+		//crear carpeta y empezar a guardar ahi
 	}
 
 
-	public static boolean petExists()
+	public static boolean exists()
 	{
+		boolean found = false;
 		// función dice si ya hay una mascota inicializada o hay que crear una nueva
-		return true;
+		File dir = new File(System.getProperty("user.dir"));
+		File[] files = dir.listFiles();
+		for (File file : files)
+		{
+			if (file.isDirectory())
+			{
+				if (file.getName().equals("current"))
+				{
+					found = true;
+					break;
+				}
+			}
+		}
+		return found;
 	}
 
 	protected static String getKindOfPet()
@@ -37,6 +58,17 @@ public abstract class Pet
 	{
 		return "Coquito";
 		//return this.name;
+	}
+
+	public static void reset()
+	{
+		//asumiendo que no existen directorios y solo archivos
+		File element = new File(System.getProperty("user.dir")+"/current");
+		for (File sub : element.listFiles())
+		{
+			sub.delete();
+		}
+		element.delete();
 	}
 
 	abstract void eat();

@@ -74,7 +74,7 @@ public class Interfaz extends JFrame implements KeyListener // extends por que e
 		containerTags.add(selectedButtonTag);
 		containerTags.add(pressedButtonTag);
 
-		if(Tamagotchi.petExists())
+		if(Pet.exists())
 		{
 			currenrBtn = 6;
 			setTitle(Tamagotchi.getName()); //titulo de la ventana
@@ -97,7 +97,7 @@ public class Interfaz extends JFrame implements KeyListener // extends por que e
 
 	public void paint(Graphics g)
 	{
-		if(Tamagotchi.petExists())
+		if(Pet.exists())
 		{
 			//ya existe un pet hay que dibujarlo como estaba para continuar
 
