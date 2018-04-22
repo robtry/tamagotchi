@@ -7,15 +7,16 @@ public abstract class Pet
 	protected int age;
 	protected double weigth;
 	protected int[] status;
-	private String kind;
+	private String kind; //clase a la que pertenece
 
-	Pet(String name, String kind)
+	Pet(String name, int age, double weigth, String kind)
 	{
 		this.name = name;
-		age = 0; //days
-		weigth = 0.100; // kg
+		this.age = age; //days
+		this.weigth = weigth; // kg
 		this.kind = kind;
 
+		/*
 		Random rndm = new Random();
 		status = new int[6];
 		status[0] = rndm.nextInt(100)+1; //dormir[0]
@@ -24,6 +25,7 @@ public abstract class Pet
 		status[3] = rndm.nextInt(15)+1; //amor[3]
 		status[4] = rndm.nextInt(30);  //diversion[4]
 		status[5] = rndm.nextInt(15); //diciplina[5]
+		*/
 
 		//crear carpeta y empezar a guardar ahi
 	}
@@ -54,10 +56,10 @@ public abstract class Pet
 		return "draws/ball/";
 	}
 
-	public static String getName()
+	protected String getName()
 	{
-		return "Coquito";
-		//return this.name;
+		//no hay que hacerle if, por que solo se ejecuta si existe
+		return name;
 	}
 
 	public static void reset()

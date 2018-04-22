@@ -10,7 +10,7 @@ import java.util.ArrayList; // meter los botones
 import java.awt.event.KeyListener;//cuando el usuario presione teclas
 import java.awt.event.KeyEvent;//eventos de las teclas
 
-public class Interfaz extends JFrame implements KeyListener // extends por que es una clase que hereda de Jframe
+public class InterfazGame extends JFrame implements KeyListener // extends por que es una clase que hereda de Jframe
 {
 	private static final long serialVersionUID = 1L;
 
@@ -18,7 +18,7 @@ public class Interfaz extends JFrame implements KeyListener // extends por que e
 	private final short largo = 450; //35 cuadritos || filas
 	private final short ancho = 350; //35 cuadritos || columnas
 	private JPanel containerOptions, containerTags;
-	public JLabel selectedButtonTag, pressedButtonTag;
+	private JLabel selectedButtonTag, pressedButtonTag;
 	private ArrayList<JButton> optionBtns= new ArrayList<JButton>();
 	private final String[] images = {"eat", //eatBtn[0]
 									  "bulb", //sleepBtn[1]
@@ -32,13 +32,14 @@ public class Interfaz extends JFrame implements KeyListener // extends por que e
 									 };
 	private byte currenrBtn;
 
-	public Interfaz() // constructor
+
+	public InterfazGame(String titulo) // constructor
 	{
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);// para que se termine la execución cuando se cierra
 		setResizable(false);// desabilita la opción de cambiar tamaño
 		setSize(ancho, largo);// establecer tamaño
 		//setLayout(new FlowLayout());//flujo en el que ordena elementos, esta comentado para que el panel de abajo coloree todo
-
+		setTitle(titulo); //titulo de la ventana
 		//agregar los botones
 		BufferedImage img;
 		containerOptions = new JPanel();
@@ -74,87 +75,70 @@ public class Interfaz extends JFrame implements KeyListener // extends por que e
 		containerTags.add(selectedButtonTag);
 		containerTags.add(pressedButtonTag);
 
-		if(Pet.exists())
-		{
-			currenrBtn = 6;
-			setTitle(Tamagotchi.getName()); //titulo de la ventana
-			optionBtns.get(currenrBtn).setEnabled(true);
-			selectedButtonTag.setText(images[currenrBtn]);
-		}
-		else
-		{
-			setTitle("!pet");
-			selectedButtonTag.setText("Elige una mascota");
-		}
+		currenrBtn = 6;
+		optionBtns.get(currenrBtn).setEnabled(true);
+		selectedButtonTag.setText(images[currenrBtn]);
 
 		add(containerOptions);
 		add(containerTags, BorderLayout.SOUTH);
 
-		setVisible(true);// para que sea visible
 		addKeyListener(this);// para que lea desde el teclado
 		setFocusable(true);//para que el panel sea quien lee las teclas
 	}
 
 	public void paint(Graphics g)
 	{
-		if(Pet.exists())
+		//ya existe un pet hay que dibujarlo como estaba para continuar
+
+		BufferedReader br = null;
+		String currentLine;
+		String fileToDraw;
+		byte ifilas = 5;
+		String[] columns;
+
+		try
 		{
-			//ya existe un pet hay que dibujarlo como estaba para continuar
+			super.paint(g);
 
-			BufferedReader br = null;
-			String currentLine;
-			String fileToDraw;
-			byte ifilas = 5;
-			String[] columns;
+			//todo el pet
+			fileToDraw = Tamagotchi.getStatus();
+			br = new BufferedReader(new FileReader(fileToDraw));
 
+			while ((currentLine = br.readLine()) != null)
+			{
+				columns = currentLine.split(" ");
+				for(byte j = 0; j < columns.length; j++)
+				{
+					if(columns[j].equals("0"))
+						g.setColor(new Color(160, 178, 129));
+					else
+						g.setColor(Color.black);
+					//drawRect(x,y,width,heigth);
+					g.fillRect (10*j, 10*ifilas+24, 10,10);
+
+					g.setColor(Color.black);
+					g.drawRect (10*j, 10*ifilas+24, 10,10);
+				}
+				ifilas++;
+			}
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
 			try
 			{
-				super.paint(g);
-
-				//todo el pet
-				fileToDraw = Tamagotchi.getStatus();
-				br = new BufferedReader(new FileReader(fileToDraw));
-
-				while ((currentLine = br.readLine()) != null)
-				{
-					columns = currentLine.split(" ");
-					for(byte j = 0; j < columns.length; j++)
-					{
-						if(columns[j].equals("0"))
-							g.setColor(new Color(160, 178, 129));
-						else
-							g.setColor(Color.black);
-						//drawRect(x,y,width,heigth);
-						g.fillRect (10*j, 10*ifilas+24, 10,10);
-
-						g.setColor(Color.black);
-						g.drawRect (10*j, 10*ifilas+24, 10,10);
-					}
-					ifilas++;
-				}
+				if (br != null)
+				br.close();
 			}
-			catch (IOException e)
+			catch (IOException ex)
 			{
-				e.printStackTrace();
-			}
-			finally
-			{
-				try
-				{
-					if (br != null)
-					br.close();
-				}
-				catch (IOException ex)
-				{
-					ex.printStackTrace();
-				}
+				ex.printStackTrace();
 			}
 		}
-		else
-		{
-			//no  hay nada creado, hay que empezar con el pet
-			//funcion menu() o algo parecido
-		}
+
 	}
 
 	@Override
