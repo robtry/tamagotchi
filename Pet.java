@@ -79,7 +79,7 @@ public abstract class Pet
 	abstract void gettingSick();
 	abstract void love();
 	abstract void gettingLonely();
-	abstract void dicipline();
+	abstract void discipline();
 	abstract void gettingUndisciplined();
 	abstract void play();
 	abstract void gettingBored();

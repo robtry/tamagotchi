@@ -11,9 +11,9 @@ public class Tamagochi extends Pet {
       break;
       case "SLEEPY": tt = TipoTamagochi.SLEEPY;
       break;
-      case "FUNNY": tt = TipoTamagochi.FUNNY;
+      case "ORDER": tt = TipoTamagochi.ORDER;
       break;
-      case "LOVELY" = TipoTamagochi.LOVABLE;
+      case "LOVELY": tt = TipoTamagochi.LOVELY;
     }
   }
   String getStatus() {

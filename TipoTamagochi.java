@@ -4,10 +4,10 @@ public enum TipoTamagochi {
     pasa el tiempo y se resta.
   */
   //      eat     sleep   health  love    funny   discipline
-  PLAYER({1, 1}, {1, 1}, {1, 1}, {1, 1}, {5, 5}, {1, 1});
-  SLEEPY({1, 1}, {5, 5}, {1, 1}, {1, 1}, {1, 1}, {1, 1});
-  ORDER ({1, 1}, {1, 1}, {1, 1}, {1, 1}, {1, 1}, {5, 5});
-  LOVELY({1, 1}, {1, 1}, {1, 1}, {5, 5}, {1, 1}, {1, 1});
+  PLAYER(new int[] {1, 1}, new int[] {1, 1}, new int[] {1, 1}, new int[] {1, 1}, new int[] {5, 5}, new int[] {1, 1}),
+  SLEEPY(new int[] {1, 1}, new int[] {5, 5}, new int[] {1, 1}, new int[] {1, 1}, new int[] {1, 1}, new int[] {1, 1}),
+  ORDER (new int[] {1, 1}, new int[] {1, 1}, new int[] {1, 1}, new int[] {1, 1}, new int[] {1, 1}, new int[] {5, 5}),
+  LOVELY(new int[] {1, 1}, new int[] {1, 1}, new int[] {1, 1}, new int[] {5, 5}, new int[] {1, 1}, new int[] {1, 1});
   private int[][] values;
 
   TipoTamagochi(int[] eat, int[] sleep, int[] health, int[] love, int[] funny, int[] discipline) {
@@ -35,40 +35,40 @@ public enum TipoTamagochi {
       }
     }
   }
-  int eatSum() {
+  public int eatSum() {
     return values[0][0];
   }
-  int sleepSum() {
-    return return values[1][0];
+  public int sleepSum() {
+    return values[1][0];
   }
-  int healthSum() {
-    return return values[2][0];
+  public int healthSum() {
+    return values[2][0];
   }
-  int loveSum() {
-    return return values[3][0];
+  public int loveSum() {
+    return values[3][0];
   }
-  int funSum() {
-    return return values[4][0];
+  public int funSum() {
+    return values[4][0];
   }
-  int disciplineSum() {
-    return return values[5][0];
+  public int disciplineSum() {
+    return values[5][0];
   }
-  int eatMinus() {
-    return return values[0][1];
+  public int eatMinus() {
+    return values[0][1];
   }
-  int sleepMinus() {
-    return return values[1][1];
+  public int sleepMinus() {
+    return values[1][1];
   }
-  int healthMinus() {
-    return return values[2][1];
+  public int healthMinus() {
+    return values[2][1];
   }
-  int loveMinus() {
-    return return values[3][1];
+  public int loveMinus() {
+    return values[3][1];
   }
-  int funMinus() {
-    return return values[4][1];
+  public int funMinus() {
+    return values[4][1];
   }
-  int disciplineMinus() {
-    return return values[5][1];
+  public int disciplineMinus() {
+    return values[5][1];
   }
 }
