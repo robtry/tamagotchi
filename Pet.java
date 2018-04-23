@@ -124,5 +124,4 @@ public abstract class Pet
 	abstract void gettingUndisciplined();
 	abstract void play();
 	abstract void gettingBored();
-	abstract String getStatus();
 }

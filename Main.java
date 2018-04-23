@@ -6,16 +6,44 @@ public class Main
 {
 	public static void main(String[] args) throws IOException
 	{
+		//if(Pet.exists())
+		//	Pet.reset();
+
 		if(Pet.exists())
 		{
-			int classBelong = 0;
+			Pet c = null;
+			String datoLeido = "";
+			String[] todosDatos = new String[10];
+			byte count = 0;
+
 			BufferedReader br = null;
 			br = new BufferedReader(new FileReader("current/data.txt"));
-			classBelong = Integer.parseInt(br.readLine());
+
+			while((datoLeido = br.readLine())!=null)
+			{
+				todosDatos[count] = datoLeido;
+				count++;
+			}
+			br.close();
+
+			int classBelong = Integer.parseInt(todosDatos[0]);
+			String nombre = todosDatos[1];
+			int edad = Integer.parseInt(todosDatos[2]);
+			double peso = Double.parseDouble(todosDatos[3]);
+			int suenio = Integer.parseInt(todosDatos[4]);
+			int hambre = Integer.parseInt(todosDatos[5]);
+			int salud = Integer.parseInt(todosDatos[6]);
+			int amor = Integer.parseInt(todosDatos[7]);
+			int diversion = Integer.parseInt(todosDatos[8]);
+			int disciplina = Integer.parseInt(todosDatos[9]);
+
+			System.out.println(classBelong);
 			switch(classBelong)
 			{
 				case 1:
-					//Pet c = new kindA();
+				System.out.println("entrando");
+					c = new kindA(nombre,	edad ,peso, suenio, hambre,
+						salud, amor, diversion, disciplina);
 				break;
 				case 2:
 					//Pet c = new kindA();
@@ -24,8 +52,8 @@ public class Main
 					//Pet c = new kindA();
 				break;
 			}
-			System.out.println(classBelong);
-			InterfazGame g = new InterfazGame("c.getName()");
+
+			InterfazGame g = new InterfazGame(c.getName());
 			g.setVisible(true);
 		}
 		else

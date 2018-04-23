@@ -4,38 +4,42 @@ public class kindA extends Pet
 		int sleep, int hungry, int health, int love, int funny, int dicipline)
 	{
 		super(name, age, weight, sleep, hungry, health, love, funny, dicipline);
+		System.out.println("creado con exito");
 	}
 
 	@Override
 	public void eat(){}
 
 	@Override
+	public void gettingHungry(){}
+
+	@Override
 	public void sleep(){}
+
+	@Override
+	public void gettingSleepy(){}
 
 	@Override
 	public void health(){}
 
 	@Override
+	public void gettingSick(){}
+
+	@Override
 	public void love(){}
 
 	@Override
-	public void funny(){}
+	public void gettingLonely(){}
 
 	@Override
-	public void dicipline(){}
+	public void discipline(){}
+
+	@Override
+	public void gettingUndisciplined(){}
 
 	@Override
 	public void play(){}
 
 	@Override
-	public void bore(){}
-
-	@Override
-	public void sad(){}
-
-	@Override
-	public void sick(){}
-
-	@Override
-	public void wake(){}
+	public void gettingBored(){}
 }

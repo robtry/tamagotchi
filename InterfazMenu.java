@@ -194,14 +194,16 @@ public class InterfazMenu extends JFrame implements KeyListener
 						FileWriter escritor = new FileWriter(data);
 						PrintWriter pw = new PrintWriter(escritor);
 
-						pw.printf(kind+"%n");
-						pw.printf(name+"%n");
-						pw.printf((rndm.nextInt(100)+1)+"%n");
-						pw.printf((rndm.nextInt(50)+1)+"%n");
-						pw.printf((rndm.nextInt(100)+1)+"%n");
-						pw.printf((rndm.nextInt(15)+1)+"%n");
-						pw.printf((rndm.nextInt(30))+"%n");
-						pw.printf((rndm.nextInt(15))+"%n");
+						pw.printf("%s%n", kind);
+						pw.printf("%s%n", name);
+						pw.printf("%d%n", 0);
+						pw.printf("%f%n", 0.1);
+						pw.printf("%d%n", (rndm.nextInt(100)+1));
+						pw.printf("%d%n", (rndm.nextInt(50)+1));
+						pw.printf("%d%n", (rndm.nextInt(100)+1));
+						pw.printf("%d%n", (rndm.nextInt(15)+1));
+						pw.printf("%d%n", (rndm.nextInt(30)));
+						pw.printf("%d", (rndm.nextInt(15)));
 
 
 						escritor.close();
