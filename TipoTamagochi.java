@@ -6,7 +6,7 @@ public enum TipoTamagochi {
   //           eat               sleep             health              love            funny            discipline
   PLAYER(new int[] {1, 1}, new int[] {1, 1}, new int[] {1, 1}, new int[] {1, 1}, new int[] {2, 4}, new int[] {1, 1}),
   SLEEPY(new int[] {1, 1}, new int[] {5, 5}, new int[] {1, 1}, new int[] {1, 1}, new int[] {1, 1}, new int[] {1, 1}),
-  ORDER (new int[] {1, 1}, new int[] {1, 1}, new int[] {1, 1}, new int[] {1, 1}, new int[] {1, 1}, new int[] {2, 4}),
+DELICATE(new int[] {1, 1}, new int[] {1, 1}, new int[] {1, 1}, new int[] {1, 1}, new int[] {1, 1}, new int[] {2, 4}),
   LOVELY(new int[] {1, 1}, new int[] {1, 1}, new int[] {1, 1}, new int[] {2, 4}, new int[] {1, 1}, new int[] {1, 1});
   private int[][] values;
 

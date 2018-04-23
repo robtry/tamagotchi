@@ -5,7 +5,7 @@ public class Tamagochi extends Pet {
 
 	//Tamagochi(String name, String kind) {
 	//	super(name, kind);
-	public Tamagochi(String name, int age, double weight, 
+	public Tamagochi(String name, int age, double weight,
 		int sleep, int hungry, int health, int love, int funny, int dicipline, String kind)
 	{
 		super(name, age, weight, sleep, hungry, health, love, funny, dicipline);
@@ -15,7 +15,7 @@ public class Tamagochi extends Pet {
 			break;
 			case "SLEEPY": tt = TipoTamagochi.SLEEPY;
 			break;
-			case "ORDER": tt = TipoTamagochi.ORDER;
+			case "DISOB": tt = TipoTamagochi.ORDER;
 			break;
 			case "LOVELY": tt = TipoTamagochi.LOVELY;
 		}
