@@ -156,7 +156,7 @@ public class InterfazMenu extends JFrame implements KeyListener
 				possibleActionTag.setText("Write a name");
 				instructionTag.setText("This was choosed");
 				String name;
-				name = JOptionPane.showInputDialog("Name of your Tamagotchi","Coquito");
+				name = JOptionPane.showInputDialog("Name of your Tamagotchi","A simple name");
 				if(name == null)
 				{
 					possibleActionTag.setText("Press Up to Select");
@@ -212,6 +212,8 @@ public class InterfazMenu extends JFrame implements KeyListener
 					{
 						ex.printStackTrace();
 					}
+
+					
 
 				}
 			}

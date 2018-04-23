@@ -11,7 +11,7 @@ public class Main
 
 		if(Pet.exists())
 		{
-			Pet c = null;
+			Pet currentPet = null;
 			String datoLeido = "";
 			String[] todosDatos = new String[10];
 			byte count = 0;
@@ -37,12 +37,10 @@ public class Main
 			int diversion = Integer.parseInt(todosDatos[8]);
 			int disciplina = Integer.parseInt(todosDatos[9]);
 
-			System.out.println(classBelong);
 			switch(classBelong)
 			{
 				case 1:
-				System.out.println("entrando");
-					c = new kindA(nombre,	edad ,peso, suenio, hambre,
+					currentPet = new kindA(nombre, edad ,peso, suenio, hambre,
 						salud, amor, diversion, disciplina);
 				break;
 				case 2:
@@ -53,7 +51,7 @@ public class Main
 				break;
 			}
 
-			InterfazGame g = new InterfazGame(c.getName());
+			InterfazGame g = new InterfazGame(currentPet);
 			g.setVisible(true);
 		}
 		else

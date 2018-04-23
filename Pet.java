@@ -57,7 +57,7 @@ public abstract class Pet
 
 	protected void save()
 	{
-
+		//guarda los datos actuales
 	}
 
 	protected String getName()
@@ -86,29 +86,48 @@ public abstract class Pet
 				temp = i;
 		}
 
-		switch(temp)
+		if(status[temp] >= 80)
 		{
-			case 0:
-				s = "sleepy";
-			break;
-			case 1:
-				s = "hungry";
-			break;
-			case 2:
-				s = "sick";
-			break;
-			case 3:
-				s = "sad";
-			break;
-			case 4:
-				s = "boring";
-			break;
-			case 5:
-				s = "spoiled";
-			break;
+			s = "okay";
+		}
+		else
+		{
+			switch(temp)
+			{
+				case 0:
+					s = "sleepy";
+				break;
+				case 1:
+					s = "hungry";
+				break;
+				case 2:
+					s = "sick";
+				break;
+				case 3:
+					s = "sad";
+				break;
+				case 4:
+					s = "boring";
+				break;
+				case 5:
+					s = "spoiled";
+				break;
+			}
 		}
 
 		return s;
+	}
+
+	protected String getMellowing()
+	{
+		if(age >= 21)
+			return "adult";
+		else if (age > 12)
+			return "teen";
+		else if(age >= 5)
+			return "kid";
+		else
+			return "baby";
 	}
 
 

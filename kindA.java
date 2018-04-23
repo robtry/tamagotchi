@@ -4,7 +4,6 @@ public class kindA extends Pet
 		int sleep, int hungry, int health, int love, int funny, int dicipline)
 	{
 		super(name, age, weight, sleep, hungry, health, love, funny, dicipline);
-		System.out.println("creado con exito");
 	}
 
 	@Override

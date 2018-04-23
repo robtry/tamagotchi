@@ -31,15 +31,18 @@ public class InterfazGame extends JFrame implements KeyListener // extends por q
 									  "help" // helpBtn [8]
 									 };
 	private byte currenrBtn;
+	private Pet currentPet;
 
 
-	public InterfazGame(String titulo) // constructor
+	public InterfazGame(Pet currentPet) // constructor
 	{
+		this.currentPet = currentPet;
+
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);// para que se termine la execución cuando se cierra
 		setResizable(false);// desabilita la opción de cambiar tamaño
 		setSize(ancho, largo);// establecer tamaño
 		//setLayout(new FlowLayout());//flujo en el que ordena elementos, esta comentado para que el panel de abajo coloree todo
-		setTitle(titulo); //titulo de la ventana
+		setTitle(currentPet.getName()); //titulo de la ventana
 		//agregar los botones
 		BufferedImage img;
 		containerOptions = new JPanel();
@@ -87,13 +90,13 @@ public class InterfazGame extends JFrame implements KeyListener // extends por q
 		setLocationRelativeTo(null);
 	}
 
-	/*public void paint(Graphics g)
+	public void paint(Graphics g)
 	{
 		//ya existe un pet hay que dibujarlo como estaba para continuar
 
 		BufferedReader br = null;
 		String currentLine;
-		String fileToDraw;
+		String petToDraw, statusToDraw;
 		byte ifilas = 5;
 		String[] columns;
 
@@ -102,9 +105,10 @@ public class InterfazGame extends JFrame implements KeyListener // extends por q
 			super.paint(g);
 
 			//todo el pet
-			//fileToDraw = Pet.getStatus();
-			br = new BufferedReader(new FileReader(fileToDraw));
+			statusToDraw = "draws/general/status/"+currentPet.getStatus()+".txt";
+			petToDraw = "draws/main/"+currentPet.getMellowing()+".txt";
 
+			br = new BufferedReader(new FileReader(statusToDraw));
 			while ((currentLine = br.readLine()) != null)
 			{
 				columns = currentLine.split(" ");
@@ -114,6 +118,27 @@ public class InterfazGame extends JFrame implements KeyListener // extends por q
 						g.setColor(new Color(160, 178, 129));
 					else
 						g.setColor(Color.black);
+
+					//drawRect(x,y,width,heigth);
+					g.fillRect (10*j, 10*ifilas+24, 10,10);
+
+					g.setColor(Color.black);
+					g.drawRect (10*j, 10*ifilas+24, 10,10);
+				}
+				ifilas++;
+			}
+
+			br = new BufferedReader(new FileReader(petToDraw));
+			while ((currentLine = br.readLine()) != null)
+			{
+				columns = currentLine.split(" ");
+				for(byte j = 0; j < columns.length; j++)
+				{
+					if(columns[j].equals("0"))
+						g.setColor(new Color(160, 178, 129));
+					else
+						g.setColor(Color.black);
+					
 					//drawRect(x,y,width,heigth);
 					g.fillRect (10*j, 10*ifilas+24, 10,10);
 
@@ -140,7 +165,7 @@ public class InterfazGame extends JFrame implements KeyListener // extends por q
 			}
 		}
 
-	}*/
+	}
 
 	@Override
 	public void keyTyped(KeyEvent e) { }
@@ -182,7 +207,7 @@ public class InterfazGame extends JFrame implements KeyListener // extends por q
 		}
 		else  if( e.getKeyCode() == KeyEvent.VK_DOWN)
 		{
-			System.out.println("saliendo");
+			repaint();
 		}
 	}
 
