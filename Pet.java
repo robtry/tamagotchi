@@ -82,8 +82,11 @@ public abstract class Pet
 		String s = "";
 		for(byte i = 0; i < status.length; i++)
 		{
-			if(menor < (byte)status[i])
+			if(menor > (byte)status[i])
+			{
+				menor = (byte)status[i];
 				temp = i;
+			}
 		}
 
 		if(status[temp] >= 80)
@@ -121,15 +124,25 @@ public abstract class Pet
 	protected String getMellowing()
 	{
 		if(age >= 21)
-			return "adult";
+			return "adult" + getFace();
 		else if (age > 12)
-			return "teen";
+			return "teen" + getFace();
 		else if(age >= 5)
-			return "kid";
+			return "kid" + getFace();
 		else
-			return "baby";
+			return "baby" + getFace();
 	}
 
+	private String getFace()
+	{
+		String lowStatus = getStatus();
+		if(lowStatus.equals("okay"))
+			return "_happy";
+		else if(lowStatus.equals("sad") || lowStatus.equals("sick"))
+			return "_sad";
+		else
+			return "_serious";
+	}
 
 	abstract void eat();
 	abstract void gettingHungry();

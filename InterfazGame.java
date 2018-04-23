@@ -27,8 +27,8 @@ public class InterfazGame extends JFrame implements KeyListener // extends por q
 									  "shower", //showerBtn [4]
 									  "talk", //talkBtn [5]
 									  "measurer", //statusBtn [6]
-									  "suggestion", //needBtn [7]
-									  "help" // helpBtn [8]
+									  "help", // helpBtn [7]
+									  "suggestion" //sugestButon[8]
 									 };
 	private byte currenrBtn;
 	private Pet currentPet;

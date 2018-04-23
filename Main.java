@@ -51,8 +51,11 @@ public class Main
 				break;
 			}
 
+			System.out.println(currentPet.getStatus());
+			System.out.println(currentPet.getMellowing());
+
 			InterfazGame g = new InterfazGame(currentPet);
-			g.setVisible(true);
+			g.setVisible(true);	
 		}
 		else
 		{
