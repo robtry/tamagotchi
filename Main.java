@@ -26,7 +26,7 @@ public class Main
 			}
 			br.close();
 
-			int classBelong = Integer.parseInt(todosDatos[0]);
+			String classBelong = todosDatos[0];
 			String nombre = todosDatos[1];
 			int edad = Integer.parseInt(todosDatos[2]);
 			double peso = Double.parseDouble(todosDatos[3]);
@@ -37,19 +37,8 @@ public class Main
 			int diversion = Integer.parseInt(todosDatos[8]);
 			int disciplina = Integer.parseInt(todosDatos[9]);
 
-			switch(classBelong)
-			{
-				case 1:
-					currentPet = new kindA(nombre, edad ,peso, suenio, hambre,
-						salud, amor, diversion, disciplina);
-				break;
-				case 2:
-					//Pet c = new kindA();
-				break;
-				case 3:
-					//Pet c = new kindA();
-				break;
-			}
+			currentPet = new Tamagochi(nombre, edad ,peso, suenio, hambre,
+						salud, amor, diversion, disciplina, classBelong);
 
 			System.out.println(currentPet.getStatus());
 			System.out.println(currentPet.getMellowing());

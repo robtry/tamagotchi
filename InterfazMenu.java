@@ -22,9 +22,10 @@ public class InterfazMenu extends JFrame implements KeyListener
 	private final String[] menu =
 							   {
 								"tuto",
-								"kind1",
-								"kind2",
-								"kind3"
+								"SLEEPY",
+								"PLAYER",
+								"DELICATE",
+								"LOVELY"
 							   };
 	private byte currentLayout;
 
@@ -173,15 +174,18 @@ public class InterfazMenu extends JFrame implements KeyListener
 					{
 						case 1:
 							//System.out.println("normal");
-							kind = "1";
+							kind = "SLEEPY";
 						break;
 						case 2:
 							//System.out.println("delicado");
-							kind = "2";
+							kind = "PLAYER";
 						break;
 						case 3:
 							//System.out.println("dormilon");
-							kind = "3";
+							kind = "DELICATE";
+						case 4:
+							//System.out.println("dormilon");
+							kind = "LOVELY";
 						break;
 					}
 
@@ -205,16 +209,12 @@ public class InterfazMenu extends JFrame implements KeyListener
 						pw.printf("%d%n", (rndm.nextInt(30)));
 						pw.printf("%d", (rndm.nextInt(15)));
 
-
 						escritor.close();
 					}
 					catch(IOException ex)
 					{
 						ex.printStackTrace();
 					}
-
-					
-
 				}
 			}
 		}
