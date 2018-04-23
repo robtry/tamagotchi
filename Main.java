@@ -13,7 +13,7 @@ public class Main
 		{
 			Pet currentPet = null;
 			String datoLeido = "";
-			String[] todosDatos = new String[10];
+			String[] todosDatos = new String[11];
 			byte count = 0;
 
 			BufferedReader br = null;
@@ -36,15 +36,17 @@ public class Main
 			int amor = Integer.parseInt(todosDatos[7]);
 			int diversion = Integer.parseInt(todosDatos[8]);
 			int disciplina = Integer.parseInt(todosDatos[9]);
+			int energia = Integer.parseInt(todosDatos[10]);
+
 
 			currentPet = new Tamagochi(nombre, edad ,peso, suenio, hambre,
-						salud, amor, diversion, disciplina, classBelong);
+						salud, amor, diversion, disciplina, energia, classBelong);
 
 			System.out.println(currentPet.getStatus());
 			System.out.println(currentPet.getMellowing());
 
 			InterfazGame g = new InterfazGame(currentPet);
-			g.setVisible(true);	
+			g.setVisible(true);
 		}
 		else
 		{

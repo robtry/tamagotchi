@@ -165,11 +165,11 @@ public class InterfazMenu extends JFrame implements KeyListener
 				}
 				else
 				{
-					//crear carpeta que tendra 
+					//crear carpeta que tendra
 					File dir = new File("current");
 					dir.mkdir();
 					String kind = "";
-					
+
 					switch(currentLayout)
 					{
 						case 1:
@@ -191,7 +191,7 @@ public class InterfazMenu extends JFrame implements KeyListener
 
 					File data = new File("current/data.txt");
 					Random rndm = new Random();
-					
+
 					try
 					{
 						data.createNewFile();
@@ -207,7 +207,8 @@ public class InterfazMenu extends JFrame implements KeyListener
 						pw.printf("%d%n", (rndm.nextInt(100)+1));
 						pw.printf("%d%n", (rndm.nextInt(15)+1));
 						pw.printf("%d%n", (rndm.nextInt(30)));
-						pw.printf("%d", (rndm.nextInt(15)));
+						pw.printf("%d%n", (rndm.nextInt(15)));
+						pw.printf("%d", (rndm.nextInt(80)+1));
 
 						escritor.close();
 					}

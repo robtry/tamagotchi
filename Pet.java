@@ -7,20 +7,21 @@ public abstract class Pet
 	protected double weight;
 	protected int[] status;
 
-	Pet(String name, int age, double weight,
-		int sleep, int hungry, int health, int love, int funny, int dicipline)
+	Pet(String name, int age, double weight, int sleep, int hungry, int health,
+			int love, int funny, int discipline, int energy)
 	{
 		this.name = name;
 		this.age = age; //days
 		this.weight = weight; // kg
-		status = new int[6];
+		status = new int[7];
 
 		status[0] = sleep; //dormir[0]
 		status[1] = hungry; //hambre[1]
 		status[2] = health; //salud[2]
 		status[3] = love; //amor[3]
 		status[4] = funny; //diversion[4]
-		status[5] = dicipline; //diciplina[5]
+		status[5] = discipline; //diciplina[5]
+		status[6] = energy;//energía[6]
 	}
 
 
@@ -156,4 +157,5 @@ public abstract class Pet
 	abstract void gettingUndisciplined();
 	abstract void play();
 	abstract void gettingBored();
+	abstract void gettingTired();
 }
