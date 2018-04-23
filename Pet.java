@@ -1,33 +1,26 @@
-import java.util.Random;
 import java.io.File; // buscar la carpeta
 
 public abstract class Pet
 {
 	protected String name;
 	protected int age;
-	protected double weigth;
+	protected double weight;
 	protected int[] status;
-	private String kind; //clase a la que pertenece
 
-	Pet(String name, int age, double weigth, String kind)
+	Pet(String name, int age, double weight, 
+		int sleep, int hungry, int health, int love, int funny, int dicipline)
 	{
 		this.name = name;
 		this.age = age; //days
-		this.weigth = weigth; // kg
-		this.kind = kind;
-
-		/*
-		Random rndm = new Random();
+		this.weight = weight; // kg
 		status = new int[6];
-		status[0] = rndm.nextInt(100)+1; //dormir[0]
-		status[1] = rndm.nextInt(50)+1; //hambre[1]
-		status[2] = rndm.nextInt(100)+1; //salud[2]
-		status[3] = rndm.nextInt(15)+1; //amor[3]
-		status[4] = rndm.nextInt(30);  //diversion[4]
-		status[5] = rndm.nextInt(15); //diciplina[5]
-		*/
 
-		//crear carpeta y empezar a guardar ahi
+		status[0] = sleep; //dormir[0]
+		status[1] = hungry; //hambre[1]
+		status[2] = health; //salud[2]
+		status[3] = love; //amor[3]
+		status[4] = funny; //diversion[4]
+		status[5] = dicipline; //diciplina[5]
 	}
 
 
@@ -51,17 +44,6 @@ public abstract class Pet
 		return found;
 	}
 
-	protected static String getKindOfPet()
-	{
-		return "draws/ball/";
-	}
-
-	protected String getName()
-	{
-		//no hay que hacerle if, por que solo se ejecuta si existe
-		return name;
-	}
-
 	public static void reset()
 	{
 		//asumiendo que no existen directorios y solo archivos
@@ -73,12 +55,72 @@ public abstract class Pet
 		element.delete();
 	}
 
+	protected void save()
+	{
+
+	}
+	
+	protected String getName()
+	{
+		return name;
+	}
+
+	protected int getAge()
+	{
+		return age;
+	}
+
+	protected double getWeight()
+	{
+		return weight;
+	}
+
+	protected String getStatus()
+	{
+		byte menor = 100;
+		byte temp = 0;
+		String s = "";
+		for(byte i = 0; i < status.length; i++)
+		{
+			if(menor < (byte)status[i])
+				temp = i;
+		}
+
+		switch(temp)
+		{
+			case 0:
+				s = "sleepy";
+			break;
+			case 1:
+				s = "hungry";
+			break;
+			case 2:
+				s = "sick";
+			break;
+			case 3:
+				s = "sad";
+			break;
+			case 4:
+				s = "boring";
+			break;
+			case 5:
+				s = "spoiled";
+			break;
+		}
+
+		return s;
+	}
+
+
 	abstract void eat();
 	abstract void sleep();
+	abstract void wake();
 	abstract void health();
+	abstract void sick();
 	abstract void love();
+	abstract void sad();
 	abstract void funny();
+	abstract void bore();
 	abstract void dicipline();
 	abstract void play();
-	abstract String getStatus();
 }

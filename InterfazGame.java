@@ -84,9 +84,10 @@ public class InterfazGame extends JFrame implements KeyListener // extends por q
 
 		addKeyListener(this);// para que lea desde el teclado
 		setFocusable(true);//para que el panel sea quien lee las teclas
+		setLocationRelativeTo(null);
 	}
 
-	public void paint(Graphics g)
+	/*public void paint(Graphics g)
 	{
 		//ya existe un pet hay que dibujarlo como estaba para continuar
 
@@ -101,7 +102,7 @@ public class InterfazGame extends JFrame implements KeyListener // extends por q
 			super.paint(g);
 
 			//todo el pet
-			fileToDraw = Tamagotchi.getStatus();
+			//fileToDraw = Pet.getStatus();
 			br = new BufferedReader(new FileReader(fileToDraw));
 
 			while ((currentLine = br.readLine()) != null)
@@ -139,7 +140,7 @@ public class InterfazGame extends JFrame implements KeyListener // extends por q
 			}
 		}
 
-	}
+	}*/
 
 	@Override
 	public void keyTyped(KeyEvent e) { }
