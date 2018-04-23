@@ -3,11 +3,11 @@ public enum TipoTamagochi {
   Llevan dos valores uno que suma cada que hace una actividad y otro cuando
     pasa el tiempo y se resta.
   */
-  //      eat     sleep   health  love    funny   discipline
-  PLAYER(new int[] {1, 1}, new int[] {1, 1}, new int[] {1, 1}, new int[] {1, 1}, new int[] {5, 5}, new int[] {1, 1}),
+  //           eat               sleep             health              love            funny            discipline
+  PLAYER(new int[] {1, 1}, new int[] {1, 1}, new int[] {1, 1}, new int[] {1, 1}, new int[] {2, 4}, new int[] {1, 1}),
   SLEEPY(new int[] {1, 1}, new int[] {5, 5}, new int[] {1, 1}, new int[] {1, 1}, new int[] {1, 1}, new int[] {1, 1}),
-  ORDER (new int[] {1, 1}, new int[] {1, 1}, new int[] {1, 1}, new int[] {1, 1}, new int[] {1, 1}, new int[] {5, 5}),
-  LOVELY(new int[] {1, 1}, new int[] {1, 1}, new int[] {1, 1}, new int[] {5, 5}, new int[] {1, 1}, new int[] {1, 1});
+  ORDER (new int[] {1, 1}, new int[] {1, 1}, new int[] {1, 1}, new int[] {1, 1}, new int[] {1, 1}, new int[] {2, 4}),
+  LOVELY(new int[] {1, 1}, new int[] {1, 1}, new int[] {1, 1}, new int[] {2, 4}, new int[] {1, 1}, new int[] {1, 1});
   private int[][] values;
 
   TipoTamagochi(int[] eat, int[] sleep, int[] health, int[] love, int[] funny, int[] discipline) {
