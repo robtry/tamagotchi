@@ -195,13 +195,13 @@ public class InterfazMenu extends JFrame implements KeyListener
 						FileWriter escritor = new FileWriter(data);
 						PrintWriter pw = new PrintWriter(escritor);
 						int sleep, hungry, health, love, funny, discipline, energy;
-						sleep = rndm.nextInt(100)+1;
-						hungry = rndm.nextInt(50)+1;
-						health = rndm.nextInt(100)+1;
-						love = rndm.nextInt(15)+1;
-						funny = rndm.nextInt(30);
-						discipline = rndm.nextInt(15);
-						energy = rndm.nextInt(80)+1;
+						sleep = rndm.nextInt(50)+50;
+						hungry = rndm.nextInt(50)+50;
+						health = rndm.nextInt(50)+50;
+						love = rndm.nextInt(30)+15;
+						funny = rndm.nextInt(30)+15;
+						discipline = rndm.nextInt(30)+15;
+						energy = rndm.nextInt(40)+40;
 
 						pw.printf("%s%n", kind);
 						pw.printf("%s%n", name);

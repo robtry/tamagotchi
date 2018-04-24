@@ -39,9 +39,10 @@ public class InterfazGame extends JFrame implements KeyListener, ActionListener
 	private Pet currentPet;
 	private Timer life;
 	private Timer during;
-	private boolean drawPet, playing, bussy, checking;
-	private int op;
+	private boolean drawPet, playing, bussy;
+	private int op, countTime;
 	private String petToDraw, statusToDraw, prevPet, prevStatus, menuToDraw;
+	private int final timeUnit = 60000; //milisegs
 
 
 	public InterfazGame(Pet currentPet) // constructor
@@ -107,14 +108,14 @@ public class InterfazGame extends JFrame implements KeyListener, ActionListener
 		bussy = false;
 		playing = false;
 		op = 0;
-		checking = false;
+		countTime = 0;
 
 		statusToDraw = "draws/general/status/"+currentPet.getStatus()+".txt";
 		petToDraw = "draws/main/"+currentPet.getMellowing()+".txt";
 		prevPet = petToDraw;
 		prevStatus = statusToDraw;
 
-		life = new Timer(1000, new ActionListener() {
+		life = new Timer(timeUnit, new ActionListener() {
 			@Override
 				public void actionPerformed(ActionEvent e) {
 					currentPet.life();
@@ -124,7 +125,7 @@ public class InterfazGame extends JFrame implements KeyListener, ActionListener
 			}
 		});
 
-		during = new Timer(1000, this);
+		during = new Timer(timeUnit/60, this);
 
 		life.start();
 	}
@@ -282,11 +283,6 @@ public class InterfazGame extends JFrame implements KeyListener, ActionListener
 					repaint();
 					life.start();
 			}
-			else
-			{
-				descriptionTag.setText(Arrays.toString(currentPet.status));
-
-			}
 		}
 	}
 
@@ -338,7 +334,7 @@ public class InterfazGame extends JFrame implements KeyListener, ActionListener
 				case 6:
 				//medidor
 					statusToDraw = "draws/general/status/status/status.txt";
-					checking = true;
+					descriptionTag.setText(currentPet.printStatus);
 				break;
 				case 7:
 				//help
@@ -355,42 +351,66 @@ public class InterfazGame extends JFrame implements KeyListener, ActionListener
 		}
 		else  if( e.getKeyCode() == KeyEvent.VK_DOWN)
 		{
-			if(!during.isRunning() || !bussy)
+			if((!during.isRunning() || !bussy) && drawPet)
 			{
 				drawPet = true;
 				bussy = false;
-				checking = false;
 				life.start();
 				repaint();
 			}
-			//during.stop();
 		}
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
+		countTime++;
 			switch (currentBtn)
 			{
 				case 0:
 					descriptionTag.setText("comiendo en progreso");
-					during.stop();
+					if (countTime == 4)
+					{
+						countTime = 0;
+						descriptionTag.setText("comida terminada");
+						during.stop();
+					}
 				break;
 				case 1:
 					descriptionTag.setText("duermiendo en progreso");
-					during.stop();
+					if(countTime == 20)
+					{
+						descriptionTag.setText("desperté del sueño");
+						countTime = 0;
+						during.stop();
+					}
 				break;
 				case 3:
 					descriptionTag.setText("curando en progreso");
-					during.stop();
+					if(countTime == 2)
+					{
+						descriptionTag.setText("listo pa los madrazos");
+						countTime = 0;
+						during.stop();
+					}
 				break;
 				case 4:
 					descriptionTag.setText("bañando en progreso");
-					during.stop();
+					if(countTime == 8)
+					{
+						descriptionTag.setText("a conquistar nenas");
+						countTime = 0;
+						during.stop();
+					}
 				break;
 				case 5:
 					descriptionTag.setText("regaño en progreso");
-					during.stop();
+					if(countTime == 5)
+					{
+						descriptionTag.setText("better person now");
+						countTime = 0;
+						during.stop();
+					}
 				break;
 			}
 	}
