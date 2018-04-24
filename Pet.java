@@ -1,5 +1,7 @@
 import java.io.File; // buscar la carpeta
-
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import java.io.IOException;
 public abstract class Pet
 {
 	protected String name;
@@ -54,9 +56,25 @@ public abstract class Pet
 		element.delete();
 	}
 
-	protected void save()
-	{
-		//guarda los datos actuales
+	protected void save() {
+		File data = new File("current/data.txt");
+		try
+		{
+			data.createNewFile();
+			FileWriter escritor = new FileWriter(data);
+			PrintWriter pw = new PrintWriter(escritor);
+
+			for(int i = 0; i < status.length; i++) {
+				if(i == status.length - 1) pw.printf("%s", status[i]);
+				else pw.printf("%s%n", status[i]);
+			}
+			escritor.close();
+
+		}
+		catch(IOException ex)
+		{
+			ex.printStackTrace();
+		}
 	}
 
 	protected String getName()
