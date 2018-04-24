@@ -6,8 +6,6 @@ public class Tamagochi extends Pet {
 	private Random random;
 	private int r;
 
-	//Tamagochi(String name, String kind) {
-	//	super(name, kind);
 	public Tamagochi(String name, int age, double weight, int sleep, int hungry,
 	int health, int love, int funny, int discipline, int energy, String kind)
 	{
@@ -24,15 +22,6 @@ public class Tamagochi extends Pet {
 		}
 		random = new Random();
 	}
-	/*
-	status[0] = sleep; //dormir[0]
-	status[1] = hungry; //hambre[1]
-	status[2] = health; //salud[2]
-	status[3] = love; //amor[3]
-	status[4] = funny; //diversion[4]
-	status[5] = discipline; //diciplina[5]
-	status[6] = energy;//energía[6]
-	*/
 	void checkLimits() {
 		for(int i = 0; i < this.status.length; i++) {
 			if(this.status[i] < 0) this.status[i] = 0;
