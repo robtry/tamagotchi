@@ -39,7 +39,7 @@ public class Main
 			int energia = Integer.parseInt(todosDatos[10]);
 
 
-			currentPet = new Tamagochi(nombre, edad ,peso, suenio, hambre,
+			currentPet = new Tamagochi(nombre, edad, peso, suenio, hambre,
 						salud, amor, diversion, disciplina, energia, classBelong);
 
 			System.out.println(currentPet.getStatus());

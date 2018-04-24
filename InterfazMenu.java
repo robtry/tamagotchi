@@ -196,20 +196,32 @@ public class InterfazMenu extends JFrame implements KeyListener
 						data.createNewFile();
 						FileWriter escritor = new FileWriter(data);
 						PrintWriter pw = new PrintWriter(escritor);
+						int sleep, hungry, health, love, funny, discipline, energy;
+						sleep = rndm.nextInt(100)+1;
+						hungry = rndm.nextInt(50)+1;
+						health = rndm.nextInt(100)+1;
+						love = rndm.nextInt(15)+1;
+						funny = rndm.nextInt(30);
+						discipline = rndm.nextInt(15);
+						energy = rndm.nextInt(80)+1;
 
 						pw.printf("%s%n", kind);
 						pw.printf("%s%n", name);
 						pw.printf("%d%n", 0);
 						pw.printf("%f%n", 0.1);
-						pw.printf("%d%n", (rndm.nextInt(100)+1));
-						pw.printf("%d%n", (rndm.nextInt(50)+1));
-						pw.printf("%d%n", (rndm.nextInt(100)+1));
-						pw.printf("%d%n", (rndm.nextInt(15)+1));
-						pw.printf("%d%n", (rndm.nextInt(30)));
-						pw.printf("%d%n", (rndm.nextInt(15)));
-						pw.printf("%d", (rndm.nextInt(80)+1));
+						pw.printf("%d%n", sleep);
+						pw.printf("%d%n", hungry);
+						pw.printf("%d%n", health);
+						pw.printf("%d%n", love);
+						pw.printf("%d%n", funny);
+						pw.printf("%d%n", discipline);
+						pw.printf("%d", energy);
 
 						escritor.close();
+						Pet currentPet = new Tamagochi(name, 0, 0.1, sleep, hungry, health, love, funny, discipline, energy, kind);
+						InterfazGame g = new InterfazGame(currentPet);
+						g.setVisible(true);
+						dispose();
 					}
 					catch(IOException ex)
 					{
@@ -218,7 +230,7 @@ public class InterfazMenu extends JFrame implements KeyListener
 				}
 			}
 		}
-		else if( e.getKeyCode() == KeyEvent.VK_DOWN)
+		else if (e.getKeyCode() == KeyEvent.VK_DOWN)
 		{
 			dispose();
 		}
