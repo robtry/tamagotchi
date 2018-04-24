@@ -12,16 +12,18 @@ import java.awt.event.KeyEvent;//eventos de las teclas
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
+import java.util.Random;
 
-public class InterfazGame extends JFrame implements KeyListener//, ActionListener
+public class InterfazGame extends JFrame implements KeyListener, ActionListener
 {
 	private static final long serialVersionUID = 1L;
 
 	//NO CAMBIAR LAS DIMENSIONES!
 	private final short largo = 450; //35 cuadritos || filas
 	private final short ancho = 350; //35 cuadritos || columnas
+	private Random rand;
 	private JPanel containerOptions, containerTags;
-	private JLabel selectedButtonTag, pressedButtonTag;
+	private JLabel selectedButtonTag, descriptionTag;
 	private ArrayList<JButton> optionBtns= new ArrayList<JButton>();
 	private final String[] images = {
 										"eat", //eatBtn[0]
@@ -31,13 +33,14 @@ public class InterfazGame extends JFrame implements KeyListener//, ActionListene
 										"shower", //showerBtn [4]
 										"talk", //talkBtn [5]
 										"measurer", //statusBtn [6]
-										"help", // helpBtn [7]
-										"suggestion" //sugestButon[8]
+										"help" // helpBtn [7] "suggestion" //sugestButon[8]
 									 };
 	private byte currentBtn;
 	private Pet currentPet;
 	private Timer life;
-	private boolean drawPet;
+	private Timer during;
+	private boolean drawPet, playing, bussy, checking;
+	private int op;
 	private String petToDraw, statusToDraw, prevPet, prevStatus, menuToDraw;
 
 
@@ -82,12 +85,12 @@ public class InterfazGame extends JFrame implements KeyListener//, ActionListene
 			//containerTags.setBackground(new Color(193, 205, 172)); // para que sea igual que arriba
 			containerTags.setBackground(Color.WHITE);
 			selectedButtonTag = new JLabel();
-			pressedButtonTag = new JLabel();
+			descriptionTag = new JLabel();
 			containerTags.setLayout(new GridLayout(1,2));//ordenar 1 fila * 2 columnas
 		containerTags.add(selectedButtonTag);
-		containerTags.add(pressedButtonTag);
+		containerTags.add(descriptionTag);
 
-		currentBtn = 6;
+		currentBtn = 0;
 		optionBtns.get(currentBtn).setEnabled(true);
 		selectedButtonTag.setText(images[currentBtn]);
 
@@ -98,7 +101,14 @@ public class InterfazGame extends JFrame implements KeyListener//, ActionListene
 		setFocusable(true);//para que el panel sea quien lee las teclas
 		setLocationRelativeTo(null);
 
+		rand = new Random();
+
 		drawPet = true;
+		bussy = false;
+		playing = false;
+		op = 0;
+		checking = false;
+
 		statusToDraw = "draws/general/status/"+currentPet.getStatus()+".txt";
 		petToDraw = "draws/main/"+currentPet.getMellowing()+".txt";
 		prevPet = petToDraw;
@@ -110,11 +120,13 @@ public class InterfazGame extends JFrame implements KeyListener//, ActionListene
 					currentPet.life();
 					System.out.println(Arrays.toString(currentPet.status));
 					checkChanges();
+					currentPet.save();
 			}
 		});
 
-		life.start();
+		during = new Timer(1000, this);
 
+		life.start();
 	}
 
 	public void paint(Graphics g)
@@ -219,65 +231,163 @@ public class InterfazGame extends JFrame implements KeyListener//, ActionListene
 	@Override
 	public void keyPressed(KeyEvent e)
 	{
-			byte temp = currentBtn;
-			if (e.getKeyCode() == KeyEvent.VK_RIGHT)
+		if (e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_LEFT)
+		{
+			if(!bussy)
 			{
-				if(currentBtn == images.length-1)
-				currentBtn = 0;
-				else
-				currentBtn++;
+					byte temp = currentBtn;
+					if (e.getKeyCode() == KeyEvent.VK_RIGHT)
+					{
+						if(currentBtn == images.length-1)
+						currentBtn = 0;
+						else
+						currentBtn++;
+					}
+					else
+					{
+						if(currentBtn == 0)
+						currentBtn = (byte)(images.length-1);
+						else
+						currentBtn--;
+					}
+					optionBtns.get(temp).setEnabled(false);
+					optionBtns.get(currentBtn).setEnabled(true);
+					selectedButtonTag.setText(images[currentBtn]);
+			}
+			else if(playing)
+			{
+					if (e.getKeyCode() == KeyEvent.VK_LEFT)
+					{
+						if(op == 0)
+						{
+							descriptionTag.setText("Ganaste");
+						}
+						else
+						{
+							descriptionTag.setText("Perdiste");
+						}
+					}
+					else
+					{
+						if(op == 0)
+						{
+							descriptionTag.setText("Perdiste");
+						}
+						else
+						{
+							descriptionTag.setText("Ganaste");
+						}
+					}
+					playing = false;
+					repaint();
+					life.start();
+			}
+			else
+			{
+				//cheking
 
 			}
-			else if (e.getKeyCode() == KeyEvent.VK_LEFT)
-			{
-				if(currentBtn == 0)
-				currentBtn = (byte)(images.length-1);
-				else
-				currentBtn--;
-			}
-
-			optionBtns.get(temp).setEnabled(false);
-			optionBtns.get(currentBtn).setEnabled(true);
-			selectedButtonTag.setText(images[currentBtn]);
+		}
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e)
 	{
-		if( e.getKeyCode() == KeyEvent.VK_UP)
+		if( e.getKeyCode() == KeyEvent.VK_UP && !bussy)
 		{
-			drawPet = false;
 			switch(currentBtn)
 			{
 				case 0:
 					//eat
+					op = rand.nextInt(4);
+					if(op == 0)	statusToDraw = "draws/general/status/eat/muffin.txt";
+					else if(op == 1) statusToDraw = "draws/general/status/eat/soup.txt";
+					else if (op == 2) statusToDraw = "draws/general/status/eat/apple.txt";
+					during.start();
 				break;
 				case 1:
 					//sleep
-					menuToDraw = "draws/general/ligth/ligth_on.txt";
-					repaint();
+					drawPet = false;
+					menuToDraw = "draws/general/light/sleeping.txt";
+					during.start();
 				break;
 				case 2:
+					//play
+					op = rand.nextInt(3);
+					playing = true;
+					if(op == 0) statusToDraw = "draws/general/play/left.txt";
+					else statusToDraw = "draws/general/play/right.txt";
 				break;
 				case 3:
+				//curar
+					op = rand.nextInt(3);
+					if(op == 0) statusToDraw = "draws/general/status/health/pills.txt";
+					else statusToDraw = "draws/general/status/health/syringe.txt";
+					during.start();
 				break;
 				case 4:
+				//shower
+					during.start();
+					statusToDraw = "draws/general/status/shower/shower.txt";
 				break;
 				case 5:
+				//talk
+					during.start();
+					statusToDraw = "draws/general/status/talk/talking.txt";
 				break;
 				case 6:
+				//medidor
+					statusToDraw = "draws/general/status/status/status.txt";
+					checking = true;
 				break;
 				case 7:
-				break;
-				case 8:
+				//help
+					drawPet = false;
+					menuToDraw = "draws/general/help/help.txt";
 				break;
 			}
+			bussy = true;
+			if(!playing)
+			{
+				repaint();
+			}
+			life.stop();
 		}
 		else  if( e.getKeyCode() == KeyEvent.VK_DOWN)
 		{
-			drawPet = true;
-			repaint();
+			if(!during.isRunning() || !bussy)
+			{
+				drawPet = true;
+				bussy = false;
+				checking = false;
+				repaint();
+			}
+			//during.stop();
 		}
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e)
+	{
+			switch (currentBtn)
+			{
+				case 0:
+					descriptionTag.setText("comiendo en progreso");
+				break;
+				case 1:
+					descriptionTag.setText("duermiendo en progreso");
+				break;
+				case 3:
+					descriptionTag.setText("curando en progreso");
+				break;
+				case 4:
+					descriptionTag.setText("bañando en progreso");
+				break;
+				case 5:
+					descriptionTag.setText("regaño en progreso");
+				break;
+
+			}
 	}
 
 	private void checkChanges()
@@ -293,4 +403,5 @@ public class InterfazGame extends JFrame implements KeyListener//, ActionListene
 			repaint();
 		}
 	}
+
 }
