@@ -55,28 +55,6 @@ public abstract class Pet
 		}
 		element.delete();
 	}
-
-	protected void save() {
-		File data = new File("current/data.txt");
-		try
-		{
-			data.createNewFile();
-			FileWriter escritor = new FileWriter(data);
-			PrintWriter pw = new PrintWriter(escritor);
-
-			for(int i = 0; i < status.length; i++) {
-				if(i == status.length - 1) pw.printf("%s", status[i]);
-				else pw.printf("%s%n", status[i]);
-			}
-			escritor.close();
-
-		}
-		catch(IOException ex)
-		{
-			ex.printStackTrace();
-		}
-	}
-
 	protected String getName()
 	{
 		return name;
@@ -86,8 +64,14 @@ public abstract class Pet
 	{
 		return age;
 	}
+	public String printStatus() {
+		String status = "[S-"+this.status[0]+", Hu-"+this.status[1]+", He-"+this.status[2]
+		+", L-"+this.status[3]+", F-"+this.status[4]+", D-"+this.status[5]+", E-"+this.status[6]+"]";
 
+		return status;
+	}
 	abstract void life();
+	abstract void save();
 	abstract String getMellowing();
 	abstract String getStatus();
 	abstract void eat();
