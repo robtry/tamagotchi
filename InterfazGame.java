@@ -37,8 +37,8 @@ public class InterfazGame extends JFrame implements KeyListener//, ActionListene
 	private byte currentBtn;
 	private Pet currentPet;
 	private Timer life;
-	private Timer animations;
 	private boolean drawPet;
+	private String petToDraw, statusToDraw, prevPet, prevStatus;
 
 
 	public InterfazGame(Pet currentPet) // constructor
@@ -98,21 +98,23 @@ public class InterfazGame extends JFrame implements KeyListener//, ActionListene
 		setFocusable(true);//para que el panel sea quien lee las teclas
 		setLocationRelativeTo(null);
 
-		life = new Timer(3000, new ActionListener() {
-			@Override
-				public void actionPerformed(ActionEvent e) {
-					System.out.println("yo ando aqui");
-			}
-		});
-		animations = new Timer(2000, new ActionListener() {
-			@Override
-				public void actionPerformed(ActionEvent e) {
-					System.out.println("yo ando aca");
-			}
-		});
 		drawPet = true;
+		statusToDraw = "draws/general/status/"+currentPet.getStatus()+".txt";
+		petToDraw = "draws/main/"+currentPet.getMellowing()+".txt";
+		prevPet = petToDraw;
+		prevStatus = statusToDraw;
+
+		life = new Timer(10000, new ActionListener() {
+			@Override
+				public void actionPerformed(ActionEvent e) {
+					currentPet.life();
+					//System.out.println(Arrays.toString(currentPet.status));
+					checkChanges();
+			}
+		});
+
 		life.start();
-		animations.start();
+
 	}
 
 	public void paint(Graphics g)
@@ -121,7 +123,6 @@ public class InterfazGame extends JFrame implements KeyListener//, ActionListene
 
 		BufferedReader br = null;
 		String currentLine;
-		String petToDraw, statusToDraw;
 		byte ifilas = 5;
 		String[] columns;
 
@@ -130,9 +131,6 @@ public class InterfazGame extends JFrame implements KeyListener//, ActionListene
 			super.paint(g);
 			if(drawPet)
 			{
-				statusToDraw = "draws/general/status/"+currentPet.getStatus()+".txt";
-				petToDraw = "draws/main/"+currentPet.getMellowing()+".txt";
-
 				br = new BufferedReader(new FileReader(statusToDraw));
 				while ((currentLine = br.readLine()) != null)
 				{
@@ -172,6 +170,10 @@ public class InterfazGame extends JFrame implements KeyListener//, ActionListene
 					}
 					ifilas++;
 				}
+			}
+			else
+			{
+				System.out.println("dibujo menu");
 			}
 		}
 		catch (IOException e)
@@ -234,6 +236,20 @@ public class InterfazGame extends JFrame implements KeyListener//, ActionListene
 		}
 		else  if( e.getKeyCode() == KeyEvent.VK_DOWN)
 		{
+			repaint();
+		}
+	}
+
+	private checkChanges()
+	{
+		statusToDraw = "draws/general/status/"+currentPet.getStatus()+".txt";
+		petToDraw = "draws/main/"+currentPet.getMellowing()+".txt";
+
+		if(!prevPet.equals(petToDraw) || !prevStatus.equals(statusToDraw))
+		{
+			//uno cambio hay que actualizar
+			prevPet = petToDraw;
+			prevStatus = statusToDraw;
 			repaint();
 		}
 	}
