@@ -30,7 +30,7 @@ public class InterfazGame extends JFrame implements KeyListener // extends por q
 									  "help", // helpBtn [7]
 									  "suggestion" //sugestButon[8]
 									 };
-	private byte currenrBtn;
+	private byte currentBtn;
 	private Pet currentPet;
 	private Life timer;
 
@@ -79,9 +79,9 @@ public class InterfazGame extends JFrame implements KeyListener // extends por q
 		containerTags.add(selectedButtonTag);
 		containerTags.add(pressedButtonTag);
 
-		currenrBtn = 6;
-		optionBtns.get(currenrBtn).setEnabled(true);
-		selectedButtonTag.setText(images[currenrBtn]);
+		currentBtn = 6;
+		optionBtns.get(currentBtn).setEnabled(true);
+		selectedButtonTag.setText(images[currentBtn]);
 
 		add(containerOptions);
 		add(containerTags, BorderLayout.SOUTH);
@@ -107,8 +107,7 @@ public class InterfazGame extends JFrame implements KeyListener // extends por q
 		try
 		{
 			super.paint(g);
-
-			//todo el pet
+			
 			statusToDraw = "draws/general/status/"+currentPet.getStatus()+".txt";
 			petToDraw = "draws/main/"+currentPet.getMellowing()+".txt";
 
@@ -142,7 +141,7 @@ public class InterfazGame extends JFrame implements KeyListener // extends por q
 						g.setColor(new Color(160, 178, 129));
 					else
 						g.setColor(Color.black);
-					
+
 					//drawRect(x,y,width,heigth);
 					g.fillRect (10*j, 10*ifilas+24, 10,10);
 
@@ -178,36 +177,37 @@ public class InterfazGame extends JFrame implements KeyListener // extends por q
 	public void keyPressed(KeyEvent e)
 	{
 
-		byte temp = currenrBtn;
+		byte temp = currentBtn;
 
 		if (e.getKeyCode() == KeyEvent.VK_RIGHT)
 		{
-			if(currenrBtn == images.length-1)
-				currenrBtn = 0;
+			if(currentBtn == images.length-1)
+				currentBtn = 0;
 			else
-				currenrBtn++;
+				currentBtn++;
 
 		}
 		else if (e.getKeyCode() == KeyEvent.VK_LEFT)
 		{
-			if(currenrBtn == 0)
-				currenrBtn = (byte)(images.length-1);
+			if(currentBtn == 0)
+				currentBtn = (byte)(images.length-1);
 			else
-				currenrBtn--;
+				currentBtn--;
 		}
 
 		optionBtns.get(temp).setEnabled(false);
-		optionBtns.get(currenrBtn).setEnabled(true);
-		selectedButtonTag.setText(images[currenrBtn]);
+		optionBtns.get(currentBtn).setEnabled(true);
+		selectedButtonTag.setText(images[currentBtn]);
 
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e)
 	{
-		if( e.getKeyCode() == KeyEvent.VK_UP)
+		if( e.getKeyCode() == KeyEvent.VK_UP && currentBtn == 1)
 		{
 			System.out.println("entrando");
+
 		}
 		else  if( e.getKeyCode() == KeyEvent.VK_DOWN)
 		{
