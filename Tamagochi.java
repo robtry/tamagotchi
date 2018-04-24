@@ -54,6 +54,9 @@ public class Tamagochi extends Pet {
 			ex.printStackTrace();
 		}
 	}
+	String getKind() {
+		return kind;
+	}
 	void apply(int index, boolean option, int multiplier, int numMultiplier) {
 		int sum, num;
 
