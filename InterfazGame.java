@@ -9,8 +9,11 @@ import java.io.IOException; //excepciones
 import java.util.ArrayList; // meter los botones
 import java.awt.event.KeyListener;//cuando el usuario presione teclas
 import java.awt.event.KeyEvent;//eventos de las teclas
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Arrays;
 
-public class InterfazGame extends JFrame implements KeyListener // extends por que es una clase que hereda de Jframe
+public class InterfazGame extends JFrame implements KeyListener//, ActionListener
 {
 	private static final long serialVersionUID = 1L;
 
@@ -21,19 +24,21 @@ public class InterfazGame extends JFrame implements KeyListener // extends por q
 	private JLabel selectedButtonTag, pressedButtonTag;
 	private ArrayList<JButton> optionBtns= new ArrayList<JButton>();
 	private final String[] images = {
-									  "eat", //eatBtn[0]
-									  "bulb", //sleepBtn[1]
-									  "play", //playBtn [2]
-									  "syringe", //medicineBtn [3]
-									  "shower", //showerBtn [4]
-									  "talk", //talkBtn [5]
-									  "measurer", //statusBtn [6]
-									  "help", // helpBtn [7]
-									  "suggestion" //sugestButon[8]
+										"eat", //eatBtn[0]
+										"bulb", //sleepBtn[1]
+										"play", //playBtn [2]
+										"syringe", //medicineBtn [3]
+										"shower", //showerBtn [4]
+										"talk", //talkBtn [5]
+										"measurer", //statusBtn [6]
+										"help", // helpBtn [7]
+										"suggestion" //sugestButon[8]
 									 };
 	private byte currentBtn;
 	private Pet currentPet;
-	private Life timer;
+	private Timer life;
+	private Timer animations;
+	private boolean drawPet;
 
 
 	public InterfazGame(Pet currentPet) // constructor
@@ -93,8 +98,21 @@ public class InterfazGame extends JFrame implements KeyListener // extends por q
 		setFocusable(true);//para que el panel sea quien lee las teclas
 		setLocationRelativeTo(null);
 
-		timer = new Life(currentPet);
-		timer.startAnimation();
+		life = new Timer(3000, new ActionListener() {
+			@Override
+				public void actionPerformed(ActionEvent e) {
+					System.out.println("yo ando aqui");
+			}
+		});
+		animations = new Timer(2000, new ActionListener() {
+			@Override
+				public void actionPerformed(ActionEvent e) {
+					System.out.println("yo ando aca");
+			}
+		});
+		drawPet = true;
+		life.start();
+		animations.start();
 	}
 
 	public void paint(Graphics g)
@@ -110,48 +128,50 @@ public class InterfazGame extends JFrame implements KeyListener // extends por q
 		try
 		{
 			super.paint(g);
-
-			statusToDraw = "draws/general/status/"+currentPet.getStatus()+".txt";
-			petToDraw = "draws/main/"+currentPet.getMellowing()+".txt";
-
-			br = new BufferedReader(new FileReader(statusToDraw));
-			while ((currentLine = br.readLine()) != null)
+			if(drawPet)
 			{
-				columns = currentLine.split(" ");
-				for(byte j = 0; j < columns.length; j++)
+				statusToDraw = "draws/general/status/"+currentPet.getStatus()+".txt";
+				petToDraw = "draws/main/"+currentPet.getMellowing()+".txt";
+
+				br = new BufferedReader(new FileReader(statusToDraw));
+				while ((currentLine = br.readLine()) != null)
 				{
-					if(columns[j].equals("0"))
+					columns = currentLine.split(" ");
+					for(byte j = 0; j < columns.length; j++)
+					{
+						if(columns[j].equals("0"))
 						g.setColor(new Color(160, 178, 129));
-					else
+						else
 						g.setColor(Color.black);
 
-					//drawRect(x,y,width,heigth);
-					g.fillRect (10*j, 10*ifilas+24, 10,10);
+						//drawRect(x,y,width,heigth);
+						g.fillRect (10*j, 10*ifilas+24, 10,10);
 
-					g.setColor(Color.black);
-					g.drawRect (10*j, 10*ifilas+24, 10,10);
+						g.setColor(Color.black);
+						g.drawRect (10*j, 10*ifilas+24, 10,10);
+					}
+					ifilas++;
 				}
-				ifilas++;
-			}
 
-			br = new BufferedReader(new FileReader(petToDraw));
-			while ((currentLine = br.readLine()) != null)
-			{
-				columns = currentLine.split(" ");
-				for(byte j = 0; j < columns.length; j++)
+				br = new BufferedReader(new FileReader(petToDraw));
+				while ((currentLine = br.readLine()) != null)
 				{
-					if(columns[j].equals("0"))
+					columns = currentLine.split(" ");
+					for(byte j = 0; j < columns.length; j++)
+					{
+						if(columns[j].equals("0"))
 						g.setColor(new Color(160, 178, 129));
-					else
+						else
 						g.setColor(Color.black);
 
-					//drawRect(x,y,width,heigth);
-					g.fillRect (10*j, 10*ifilas+24, 10,10);
+						//drawRect(x,y,width,heigth);
+						g.fillRect (10*j, 10*ifilas+24, 10,10);
 
-					g.setColor(Color.black);
-					g.drawRect (10*j, 10*ifilas+24, 10,10);
+						g.setColor(Color.black);
+						g.drawRect (10*j, 10*ifilas+24, 10,10);
+					}
+					ifilas++;
 				}
-				ifilas++;
 			}
 		}
 		catch (IOException e)
@@ -214,8 +234,7 @@ public class InterfazGame extends JFrame implements KeyListener // extends por q
 		}
 		else  if( e.getKeyCode() == KeyEvent.VK_DOWN)
 		{
-			//repaint();
+			repaint();
 		}
 	}
-
 }
