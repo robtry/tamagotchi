@@ -20,7 +20,8 @@ public class InterfazGame extends JFrame implements KeyListener // extends por q
 	private JPanel containerOptions, containerTags;
 	private JLabel selectedButtonTag, pressedButtonTag;
 	private ArrayList<JButton> optionBtns= new ArrayList<JButton>();
-	private final String[] images = {"eat", //eatBtn[0]
+	private final String[] images = {
+									  "eat", //eatBtn[0]
 									  "bulb", //sleepBtn[1]
 									  "play", //playBtn [2]
 									  "syringe", //medicineBtn [3]
@@ -48,7 +49,8 @@ public class InterfazGame extends JFrame implements KeyListener // extends por q
 		BufferedImage img;
 		containerOptions = new JPanel();
 		//containerOptions.setBackground(new Color(160, 178, 129));
-		containerOptions.setBackground(new Color(193, 205, 172));
+		//containerOptions.setBackground(new Color(193, 205, 172));
+		containerOptions.setBackground(Color.WHITE);
 		containerOptions.setLayout(new FlowLayout());
 			for(int i = 0; i < images.length; i++) // 9 botones
 			{
@@ -72,7 +74,8 @@ public class InterfazGame extends JFrame implements KeyListener // extends por q
 
 		//agregar etiquetas de abajo
 		containerTags = new JPanel();
-			containerTags.setBackground(new Color(193, 205, 172)); // para que sea igual que arriba
+			//containerTags.setBackground(new Color(193, 205, 172)); // para que sea igual que arriba
+			containerTags.setBackground(Color.WHITE);
 			selectedButtonTag = new JLabel();
 			pressedButtonTag = new JLabel();
 			containerTags.setLayout(new GridLayout(1,2));//ordenar 1 fila * 2 columnas
@@ -107,7 +110,7 @@ public class InterfazGame extends JFrame implements KeyListener // extends por q
 		try
 		{
 			super.paint(g);
-			
+
 			statusToDraw = "draws/general/status/"+currentPet.getStatus()+".txt";
 			petToDraw = "draws/main/"+currentPet.getMellowing()+".txt";
 

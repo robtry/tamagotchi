@@ -7,10 +7,10 @@ public class Tamagochi extends Pet {
 	private int r;
 	private String kind;
 
-	public Tamagochi(String name, int age, double weight, int sleep, int hungry,
+	public Tamagochi(String name, int age, int sleep, int hungry,
 	int health, int love, int funny, int discipline, int energy, String kind)
 	{
-		super(name, age, weight, sleep, hungry, health, love, funny, discipline, energy);
+		super(name, age, sleep, hungry, health, love, funny, discipline, energy);
 
 		this.kind = kind;
 

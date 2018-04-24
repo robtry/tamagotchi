@@ -4,15 +4,13 @@ public abstract class Pet
 {
 	protected String name;
 	protected int age;
-	protected double weight;
 	protected int[] status;
 
-	Pet(String name, int age, double weight, int sleep, int hungry, int health,
+	Pet(String name, int age, int sleep, int hungry, int health,
 			int love, int funny, int discipline, int energy)
 	{
 		this.name = name;
 		this.age = age; //days
-		this.weight = weight; // kg
 		status = new int[7];
 
 		status[0] = sleep; //dormir[0]
@@ -69,11 +67,6 @@ public abstract class Pet
 	protected int getAge()
 	{
 		return age;
-	}
-
-	protected double getWeight()
-	{
-		return weight;
 	}
 
 	abstract void life();

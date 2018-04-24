@@ -60,8 +60,6 @@ public class InterfazMenu extends JFrame implements KeyListener
 
 	public void paint(Graphics g)
 	{
-		//ya existe un pet hay que dibujarlo como estaba para continuar
-
 		BufferedReader br = null;
 		String currentLine;
 		String fileToDraw;
@@ -208,7 +206,6 @@ public class InterfazMenu extends JFrame implements KeyListener
 						pw.printf("%s%n", kind);
 						pw.printf("%s%n", name);
 						pw.printf("%d%n", 0);
-						pw.printf("%f%n", 0.1);
 						pw.printf("%d%n", sleep);
 						pw.printf("%d%n", hungry);
 						pw.printf("%d%n", health);
@@ -218,9 +215,10 @@ public class InterfazMenu extends JFrame implements KeyListener
 						pw.printf("%d", energy);
 
 						escritor.close();
-						Pet currentPet = new Tamagochi(name, 0, 0.1, sleep, hungry, health, love, funny, discipline, energy, kind);
+						Pet currentPet = new Tamagochi(name, 0, sleep, hungry, health, love, funny, discipline, energy, kind);
 						InterfazGame g = new InterfazGame(currentPet);
 						g.setVisible(true);
+						//g.repaint();
 						dispose();
 					}
 					catch(IOException ex)

@@ -13,7 +13,7 @@ public class Main
 		{
 			Pet currentPet = null;
 			String datoLeido = "";
-			String[] todosDatos = new String[11];
+			String[] todosDatos = new String[10];
 			byte count = 0;
 
 			BufferedReader br = null;
@@ -29,17 +29,16 @@ public class Main
 			String classBelong = todosDatos[0];
 			String nombre = todosDatos[1];
 			int edad = Integer.parseInt(todosDatos[2]);
-			double peso = Double.parseDouble(todosDatos[3]);
-			int suenio = Integer.parseInt(todosDatos[4]);
-			int hambre = Integer.parseInt(todosDatos[5]);
-			int salud = Integer.parseInt(todosDatos[6]);
-			int amor = Integer.parseInt(todosDatos[7]);
-			int diversion = Integer.parseInt(todosDatos[8]);
-			int disciplina = Integer.parseInt(todosDatos[9]);
-			int energia = Integer.parseInt(todosDatos[10]);
+			int suenio = Integer.parseInt(todosDatos[3]);
+			int hambre = Integer.parseInt(todosDatos[4]);
+			int salud = Integer.parseInt(todosDatos[5]);
+			int amor = Integer.parseInt(todosDatos[6]);
+			int diversion = Integer.parseInt(todosDatos[7]);
+			int disciplina = Integer.parseInt(todosDatos[8]);
+			int energia = Integer.parseInt(todosDatos[9]);
 
 
-			currentPet = new Tamagochi(nombre, edad, peso, suenio, hambre,
+			currentPet = new Tamagochi(nombre, edad, suenio, hambre,
 						salud, amor, diversion, disciplina, energia, classBelong);
 
 			System.out.println(currentPet.getStatus());
