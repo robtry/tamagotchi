@@ -38,7 +38,7 @@ public class InterfazGame extends JFrame implements KeyListener//, ActionListene
 	private Pet currentPet;
 	private Timer life;
 	private boolean drawPet;
-	private String petToDraw, statusToDraw, prevPet, prevStatus;
+	private String petToDraw, statusToDraw, prevPet, prevStatus, menuToDraw;
 
 
 	public InterfazGame(Pet currentPet) // constructor
@@ -173,7 +173,25 @@ public class InterfazGame extends JFrame implements KeyListener//, ActionListene
 			}
 			else
 			{
-				System.out.println("dibujo menu");
+				br = new BufferedReader(new FileReader(menuToDraw));
+				while ((currentLine = br.readLine()) != null)
+				{
+					columns = currentLine.split(" ");
+					for(byte j = 0; j < columns.length; j++)
+					{
+						if(columns[j].equals("0"))
+						g.setColor(new Color(160, 178, 129));
+						else
+						g.setColor(Color.black);
+
+						//drawRect(x,y,width,heigth);
+						g.fillRect (10*j, 10*ifilas+24, 10,10);
+
+						g.setColor(Color.black);
+						g.drawRect (10*j, 10*ifilas+24, 10,10);
+					}
+					ifilas++;
+				}
 			}
 		}
 		catch (IOException e)
@@ -201,46 +219,68 @@ public class InterfazGame extends JFrame implements KeyListener//, ActionListene
 	@Override
 	public void keyPressed(KeyEvent e)
 	{
-
-		byte temp = currentBtn;
-
-		if (e.getKeyCode() == KeyEvent.VK_RIGHT)
-		{
-			if(currentBtn == images.length-1)
+			byte temp = currentBtn;
+			if (e.getKeyCode() == KeyEvent.VK_RIGHT)
+			{
+				if(currentBtn == images.length-1)
 				currentBtn = 0;
-			else
+				else
 				currentBtn++;
 
-		}
-		else if (e.getKeyCode() == KeyEvent.VK_LEFT)
-		{
-			if(currentBtn == 0)
+			}
+			else if (e.getKeyCode() == KeyEvent.VK_LEFT)
+			{
+				if(currentBtn == 0)
 				currentBtn = (byte)(images.length-1);
-			else
+				else
 				currentBtn--;
-		}
+			}
 
-		optionBtns.get(temp).setEnabled(false);
-		optionBtns.get(currentBtn).setEnabled(true);
-		selectedButtonTag.setText(images[currentBtn]);
-
+			optionBtns.get(temp).setEnabled(false);
+			optionBtns.get(currentBtn).setEnabled(true);
+			selectedButtonTag.setText(images[currentBtn]);
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e)
 	{
-		if( e.getKeyCode() == KeyEvent.VK_UP && currentBtn == 1)
+		if( e.getKeyCode() == KeyEvent.VK_UP)
 		{
-			System.out.println("entrando");
-
+			drawPet = false;
+			switch(currentBtn)
+			{
+				case 0:
+					//eat
+				break;
+				case 1:
+					//sleep
+					menuToDraw = "draws/general/ligth/ligth_on.txt";
+					repaint();
+				break;
+				case 2:
+				break;
+				case 3:
+				break;
+				case 4:
+				break;
+				case 5:
+				break;
+				case 6:
+				break;
+				case 7:
+				break;
+				case 8:
+				break;
+			}
 		}
 		else  if( e.getKeyCode() == KeyEvent.VK_DOWN)
 		{
+			drawPet = true;
 			repaint();
 		}
 	}
 
-	private checkChanges()
+	private void checkChanges()
 	{
 		statusToDraw = "draws/general/status/"+currentPet.getStatus()+".txt";
 		petToDraw = "draws/main/"+currentPet.getMellowing()+".txt";
