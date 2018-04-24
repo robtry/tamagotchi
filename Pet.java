@@ -76,6 +76,7 @@ public abstract class Pet
 		return weight;
 	}
 
+	abstract void life();
 	abstract String getMellowing();
 	abstract String getStatus();
 	abstract void eat();

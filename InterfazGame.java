@@ -90,7 +90,8 @@ public class InterfazGame extends JFrame implements KeyListener // extends por q
 		setFocusable(true);//para que el panel sea quien lee las teclas
 		setLocationRelativeTo(null);
 
-		timer = new Life();
+		timer = new Life(currentPet);
+		timer.startAnimation();
 	}
 
 	public void paint(Graphics g)
@@ -210,9 +211,8 @@ public class InterfazGame extends JFrame implements KeyListener // extends por q
 		}
 		else  if( e.getKeyCode() == KeyEvent.VK_DOWN)
 		{
-			repaint();
+			//repaint();
 		}
 	}
 
 }
-//https://docs.oracle.com/javase/tutorial/uiswing/painting/closer.html

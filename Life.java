@@ -1,37 +1,35 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
 
-public class Life extends JFrame implements ActionListener {
+public class Life extends JFrame implements ActionListener
+{
 	public Timer timer;
-	private boolean frozen;
+	private Pet currentPet;
 
-	public Life(){
-		timer = new Timer(1000, this);
-		timer.setInitialDelay(1000);
+	public Life(Pet currentPet)
+	{
+		timer = new Timer(2000, this);
+		//timer.setInitialDelay(1000);
 		timer.setCoalesce(true);
-		frozen = false;
+		this.currentPet = currentPet;
 	}
 
-	public void startAnimation() {
-		if (frozen) {
-			System.out.println("aqui ando");
-		} else {
-			//Start (or res!
-			timer.start();
-		}
+	public void startAnimation()
+	{
+		timer.start();
 	}
 
-	public void stopAnimation() {
+	public void stopAnimation()
+	{
 		//Stop the animating thread.
 		timer.stop();
 	}
 
-	public void actionPerformed (ActionEvent e) {
-		//Advance the animation frame.
-		//frameNumber++;
-		System.out.println("mejor");
-		//Display it.
-		//repaint();
+	public void actionPerformed (ActionEvent e)
+	{
+		currentPet.life();
+		System.out.println(Arrays.toString(currentPet.status));
 	}
 }
