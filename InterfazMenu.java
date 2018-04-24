@@ -56,7 +56,6 @@ public class InterfazMenu extends JFrame implements KeyListener
 		setLocationRelativeTo(null);
 
 		 currentLayout = 0;
-
 	}
 
 	public void paint(Graphics g)
