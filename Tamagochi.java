@@ -25,11 +25,76 @@ public class Tamagochi extends Pet {
 		}
 		random = new Random();
 	}
-	void checkLimits() {
-		for(int i = 0; i < this.status.length; i++) {
-			if(this.status[i] < 0) this.status[i] = 0;
-			else if(this.status[i] > 100) this.status[i] = 100;
+	void apply(int index, boolean option, int multiplier, int numMultiplier) {
+		int sum, num;
+
+		sum = 0;
+		num = 0;
+
+		switch(index) {
+			case 0:
+				if(option) {
+					num = tt.sleepSum();
+				} else {
+					num = tt.sleepMinus();
+				}
+			break;
+			case 1:
+			if(option) {
+				num = tt.eatSum();
+			} else {
+				num = tt.eatMinus();
+			}
+			break;
+			case 2:
+			if(option) {
+				num = tt.healthSum();
+			} else {
+				num = tt.healthMinus();
+			}
+			break;
+			case 3:
+			if(option) {
+				num = tt.loveSum();
+			} else {
+				num = tt.loveMinus();
+			}
+			break;
+			case 4:
+			if(option) {
+				num = tt.funSum();
+			} else {
+				num = tt.funMinus();
+			}
+			break;
+			case 5:
+			if(option) {
+				num = tt.disciplineSum();
+			} else {
+				num = tt.disciplineMinus();
+			}
+			break;
+			case 6:
+			if(option) {
+				num = tt.energySum();
+			} else {
+				num = tt.energyMinus();
+			}
+			break;
+			default:
+			break;
 		}
+
+		if(option) {
+			sum = multiplier * this.status[index] + (num * numMultiplier);
+		} else {
+			sum = multiplier * this.status[index] - (num * numMultiplier);
+		}
+
+		if(sum <= 0) this.status[index] = 0;
+		else if(sum >= 100) this.status[index] = 100;
+		else this.status[index] = sum;
+
 	}
 	public String getMellowing() {
 		if(age > 80)
@@ -124,120 +189,118 @@ public class Tamagochi extends Pet {
 						gettingTired();
 					break;
 					default:
-					System.out.println("Todo bien");
 					break;
 				}
 			}
 		}
 	}
 	void life() {
-		this.status[0] -= tt.sleepMinus();
-		this.status[1] -= tt.eatMinus();
-		this.status[3] -= tt.loveMinus();
-		this.status[4] -= tt.funMinus();
-		this.status[6] -= tt.energyMinus();
-		checkLimits();
+		apply(0, false, 1, 1);
+		apply(1, false, 1, 1);
+		apply(3, false, 1, 1);
+		apply(4, false, 1, 1);
+		apply(6, false, 1, 1);
 		conditionals();
 	}
 	void sleep() {
-		this.status[0] += tt.sleepSum();
-		this.status[1] -= tt.eatMinus();
-		this.status[2] += tt.healthSum();
-		this.status[3] += tt.loveSum();
-		this.status[4] += tt.funSum()/3;
-		this.status[6] += tt.energySum();
+		apply(0, true, 1, 1);
+		apply(1, false, 1, 1);
+		apply(2, true, 1, 1);
+		apply(3, true, 1, 1);
+		apply(4, true, 1, 1/3);
+		apply(6, true, 1, 1);
 	}
 	void gettingSleepy() {
-		this.status[0] -= 2 * tt.sleepMinus();
+		apply(0, false, 1, 2);
 		if(kind.equals("DELICATE")) {
-			this.status[2] -= 3 * tt.healthMinus();
-		} else this.status[2] -= 2 * tt.healthMinus();
-		this.status[5] -= 2 * tt.disciplineMinus();
-		this.status[6] -= 2 * tt.energyMinus();
+			apply(2, false, 1, 3);
+		} else apply(2, false, 1, 2);
+		apply(5, false, 1, 2);
+		apply(6, false, 1, 2);
 
 	}
 	void eat() {
-		this.status[1] += tt.eatSum();
-		this.status[6] += tt.energySum();
-		this.status[3] += tt.loveSum();
+		apply(1, true, 1, 1);
+		apply(6, true, 1, 1);
+		apply(3, true, 1, 1);
+
 		if(kind.equals("DELICATE")) {
 			r = random.nextInt(2);
-			if(r == 1) this.status[2] += tt.healthSum();
-			else this.status[2] -= tt.healthMinus();
-		} else this.status[2] += tt.healthSum();
+			if(r == 1) 		apply(2, true, 1, 1);
+			else 		apply(2, false, 1, 1);
+		} else 		apply(2, true, 1, 1);
 	}
 	void gettingHungry() {
-		this.status[1] -= 2 * tt.eatMinus();
-		this.status[2] -= 2 * tt.healthMinus();
-		this.status[3] -= 2 * tt.loveMinus();
-		this.status[6] -= tt.energyMinus();
-		this.status[5] -= 3 * tt.disciplineMinus();
+		apply(1, false, 1, 2);
+		apply(2, false, 1, 2);
+		apply(3, false, 1, 2);
+		apply(5, false, 1, 3);
+		apply(6, false, 1, 1);
 	}
 	void health() {
-		this.status[2] += 10;
-		this.status[3] -= 10;
-		this.status[4] /= 2;
+		apply(2, true, 1, 1);
+		apply(3, false, 1, 1);
+		apply(4, true, 1/2, 1);
 	}
 	void gettingSick() {
-		this.status[0] -= 2 * tt.sleepMinus();
-		this.status[2] -= 2 * tt.healthMinus();
-		this.status[4] -= 3 * tt.funMinus();
-		this.status[6] -= 4 * tt.energyMinus();
+		apply(0, false, 1, 2);
+		apply(2, false, 1, 2);
+		apply(4, false, 1, 3);
+		apply(6, false, 1, 2);
 	}
 	void love() {
-		this.status[3] += tt.loveSum();
+		apply(3, true, 1, 1);
 	}
 	void shower() {
 		r = random.nextInt(2);
-		if(r == 1) this.status[6] += tt.energySum();
-		else this.status[6] -= tt.energyMinus();
+		if(r == 1) apply(6, true, 1, 1);
+		else apply(6, false, 1, 1);
 
 		r = random.nextInt(2);
-		if(r == 1) this.status[2] += tt.healthSum();
-		else this.status[2] -= 3 * tt.healthMinus();
-
-		this.status[4] += tt.funSum();
+		if(r == 1) apply(2, true, 1, 1);
+		else apply(2, false, 1, 3);
+		apply(4, true, 1, 1);
 	}
 	void gettingDirty() {
 		r = random.nextInt(2);
-		if(r == 1) this.status[4] += 2 * tt.funSum();
-		else this.status[4] -= 2 * tt.funMinus();
-		this.status[2] -= 2 * tt.healthMinus();
+		if(r == 1) apply(4, true, 1, 2);
+		else apply(4, false, 1, 2);
+		apply(2, false, 1, 2);
 	}
 	void gettingLonely() {
-		this.status[1] -= tt.eatMinus();
-		this.status[3] -= 2 * tt.loveMinus();
-		this.status[4] -= tt.funMinus();
-		this.status[5] -= tt.disciplineMinus();
-		this.status[6] += tt.energySum();
+		apply(1, false, 1, 1);
+		apply(3, false, 1, 2);
+		apply(4, false, 1, 1);
+		apply(5, false, 1, 1);
+		apply(6, true, 1, 1);
 	}
 	void play() {
-		this.status[1] -= tt.eatMinus();
-		this.status[3] += tt.loveSum();
-		this.status[4] += 2 * tt.funSum();
+		apply(1, false, 1, 1);
+		apply(3, true, 1, 1);
+		apply(4, true, 1, 2);
 		r = random.nextInt(2);
-		if(r == 1) this.status[5] += tt.disciplineSum();
-		else this.status[5] -= tt.disciplineMinus();
-		this.status[6] -= tt.energyMinus();
+		if(r == 1) apply(5, true, 1, 1);
+		else apply(5, false, 1, 1);
+		apply(6, false, 1, 1);
 	}
 	void gettingBored() {
-		this.status[3] -= tt.loveMinus();
-		this.status[4] -= 3 * tt.funMinus();
-		this.status[5] -= 2 * tt.disciplineMinus();
-		this.status[6] += tt.energySum();
+		apply(3, false, 1, 1);
+		apply(4, false, 1, 3);
+		apply(5, false, 1, 2);
+		apply(6, true, 1, 1);
 	}
 	void talk() {
 		r = random.nextInt(2);
-		if(r == 1) this.status[4] -= tt.funMinus();
-		this.status[5] += tt.disciplineSum();
+		if(r == 1) apply(4, false, 1, 1);
+		apply(5, true, 1, 1);
 		r = random.nextInt(2);
-		if(r == 1) this.status[6] -= tt.energyMinus();
+		if(r == 1) apply(6, false, 1, 1);
 	}
 	double gettingUndisciplined() {
 		return (double)(this.status[5]/100);
 	}
 	void gettingTired() {
-		this.status[0] -= 3 * tt.sleepMinus();
-		this.status[1] -= 3 * tt.eatMinus();
+		apply(0, false, 1, 3);
+		apply(1, false, 1, 3);
 	}
 }
