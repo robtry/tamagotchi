@@ -101,7 +101,8 @@ public class InterfazGame extends JFrame implements KeyListener//, ActionListene
 		life = new Timer(3000, new ActionListener() {
 			@Override
 				public void actionPerformed(ActionEvent e) {
-					System.out.println("yo ando aqui");
+					currentPet.life();
+					System.out.println(Arrays.toString(currentPet.status));
 			}
 		});
 		animations = new Timer(2000, new ActionListener() {
