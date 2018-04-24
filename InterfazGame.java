@@ -114,7 +114,7 @@ public class InterfazGame extends JFrame implements KeyListener, ActionListener
 		prevPet = petToDraw;
 		prevStatus = statusToDraw;
 
-		life = new Timer(10000, new ActionListener() {
+		life = new Timer(1000, new ActionListener() {
 			@Override
 				public void actionPerformed(ActionEvent e) {
 					currentPet.life();
@@ -284,7 +284,7 @@ public class InterfazGame extends JFrame implements KeyListener, ActionListener
 			}
 			else
 			{
-				//cheking
+				descriptionTag.setText(Arrays.toString(currentPet.status));
 
 			}
 		}
@@ -315,8 +315,8 @@ public class InterfazGame extends JFrame implements KeyListener, ActionListener
 					//play
 					op = rand.nextInt(3);
 					playing = true;
-					if(op == 0) statusToDraw = "draws/general/play/left.txt";
-					else statusToDraw = "draws/general/play/right.txt";
+					if(op == 0) statusToDraw = "draws/general/status/play/left.txt";
+					else statusToDraw = "draws/general/status/play/right.txt";
 				break;
 				case 3:
 				//curar
@@ -360,6 +360,7 @@ public class InterfazGame extends JFrame implements KeyListener, ActionListener
 				drawPet = true;
 				bussy = false;
 				checking = false;
+				life.start();
 				repaint();
 			}
 			//during.stop();
@@ -373,20 +374,24 @@ public class InterfazGame extends JFrame implements KeyListener, ActionListener
 			{
 				case 0:
 					descriptionTag.setText("comiendo en progreso");
+					during.stop();
 				break;
 				case 1:
 					descriptionTag.setText("duermiendo en progreso");
+					during.stop();
 				break;
 				case 3:
 					descriptionTag.setText("curando en progreso");
+					during.stop();
 				break;
 				case 4:
 					descriptionTag.setText("bañando en progreso");
+					during.stop();
 				break;
 				case 5:
 					descriptionTag.setText("regaño en progreso");
+					during.stop();
 				break;
-
 			}
 	}
 
