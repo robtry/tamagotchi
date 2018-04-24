@@ -71,6 +71,6 @@ DELICATE(new int[] {1, 1}, new int[] {1, 1}, new int[] {2, 4}, new int[] {1, 1},
     return values[5][1];
   }
   public int energyMinus() {
-    return values[6][1]
+    return values[6][1];
   }
 }

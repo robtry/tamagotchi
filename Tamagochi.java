@@ -5,13 +5,16 @@ public class Tamagochi extends Pet {
 	private TipoTamagochi tt;
 	private Random random;
 	private int r;
+	private String kind;
 
 	public Tamagochi(String name, int age, double weight, int sleep, int hungry,
 	int health, int love, int funny, int discipline, int energy, String kind)
 	{
 		super(name, age, weight, sleep, hungry, health, love, funny, discipline, energy);
 
-		switch(kind) {
+		this.kind = kind;
+
+		switch(this.kind) {
 			case "PLAYER": tt = TipoTamagochi.PLAYER;
 			break;
 			case "SLEEPY": tt = TipoTamagochi.SLEEPY;
@@ -25,10 +28,10 @@ public class Tamagochi extends Pet {
 	void checkLimits() {
 		for(int i = 0; i < this.status.length; i++) {
 			if(this.status[i] < 0) this.status[i] = 0;
-			else if(this.status[i] > 100) this.statud[i] = 100;
+			else if(this.status[i] > 100) this.status[i] = 100;
 		}
 	}
-	String getMellowing() {
+	public String getMellowing() {
 		if(age >= 21)
 			return "adult" + getFace();
 		else if (age > 12)
@@ -47,43 +50,83 @@ public class Tamagochi extends Pet {
 			else
 				return "_serious";
 	}
+
 	String getStatus() {
+		byte min = 100;
+		byte temp = 0;
 		String s = "";
-		for(int i = 0; i < this.status.length; i++) {
+		for(byte i = 0; i < this.status.length; i++)
+		{
+			if(min > (byte)this.status[i])
+			{
+				min = (byte)this.status[i];
+				temp = i;
+			}
+		}
+
+		if(min >= 80)
+		{
+			s = "okay";
+		}
+		else
+		{
+			switch(temp)
+			{
+				case 0:
+					s = "sleepy";
+				break;
+				case 1:
+					s = "hungry";
+				break;
+				case 2:
+					s = "sick";
+				break;
+				case 3:
+					s = "sad";
+				break;
+				case 4:
+					s = "boring";
+				break;
+				case 5:
+					s = "spoiled";
+				break;
+				case 6:
+					s = "sleepy";
+				break;
+			}
+		}
+		return s;
+	}
+
+	void conditionals() {
+		for(byte i = 0; i < this.status.length; i++) {
+		
 			if(this.status[i] <= 10) {
 				switch(i) {
 					case 0:
 						gettingSleepy();
-						s = "sleepy";
 					break;
 					case 1:
 						gettingHungry();
-						s = "hungry";
 					break;
 					case 2:
 						gettingSick();
-						s = "sick";
 					break;
 					case 3:
 						gettingLonely();
-						s = "sad";
 					break;
 					case 4:
 						gettingBored();
-						s = "boring";
 					break;
 					case 6:
 						gettingTired();
-						s = "sleepy";
 					break;
 					default:
 					System.out.println("Todo bien");
 					break;
 				}
 			}
-			else s = "okay";
 		}
-		return "s";
 	}
 	void life() {
 		this.status[0] -= tt.sleepMinus();
@@ -162,7 +205,7 @@ public class Tamagochi extends Pet {
 	void gettingLonely() {
 		this.status[1] -= tt.eatMinus();
 		this.status[3] -= 2 * tt.loveMinus();
-		this.statud[4] -= tt.funMinus();
+		this.status[4] -= tt.funMinus();
 		this.status[5] -= tt.disciplineMinus();
 		this.status[6] += tt.energySum();
 	}
@@ -177,7 +220,7 @@ public class Tamagochi extends Pet {
 	}
 	void gettingBored() {
 		this.status[3] -= tt.loveMinus();
-		this.statud[4] -= 3 * tt.funMinus();
+		this.status[4] -= 3 * tt.funMinus();
 		this.status[5] -= 2 * tt.disciplineMinus();
 		this.status[6] += tt.energySum();
 	}

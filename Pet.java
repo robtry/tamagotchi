@@ -75,7 +75,9 @@ public abstract class Pet
 	{
 		return weight;
 	}
-	abstract String getStatus()
+
+	abstract String getMellowing();
+	abstract String getStatus();
 	abstract void eat();
 	abstract void gettingHungry();
 	abstract void sleep();
@@ -85,7 +87,7 @@ public abstract class Pet
 	abstract void love();
 	abstract void gettingLonely();
 	abstract void talk();
-	abstract void gettingUndisciplined();
+	abstract double gettingUndisciplined();
 	abstract void play();
 	abstract void shower();
 	abstract void gettingDirty();
