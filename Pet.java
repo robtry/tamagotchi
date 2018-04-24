@@ -75,76 +75,7 @@ public abstract class Pet
 	{
 		return weight;
 	}
-
-	protected String getStatus()
-	{
-		byte menor = 100;
-		byte temp = 0;
-		String s = "";
-		for(byte i = 0; i < status.length; i++)
-		{
-			if(menor > (byte)status[i])
-			{
-				menor = (byte)status[i];
-				temp = i;
-			}
-		}
-
-		if(status[temp] >= 80)
-		{
-			s = "okay";
-		}
-		else
-		{
-			switch(temp)
-			{
-				case 0:
-					s = "sleepy";
-				break;
-				case 1:
-					s = "hungry";
-				break;
-				case 2:
-					s = "sick";
-				break;
-				case 3:
-					s = "sad";
-				break;
-				case 4:
-					s = "boring";
-				break;
-				case 5:
-					s = "spoiled";
-				break;
-			}
-		}
-
-		return s;
-	}
-
-	protected String getMellowing()
-	{
-		if(age >= 21)
-			return "adult" + getFace();
-		else if (age > 12)
-			return "teen" + getFace();
-		else if(age >= 5)
-			return "kid" + getFace();
-		else
-			return "baby" + getFace();
-	}
-
-	private String getFace()
-	{
-		String lowStatus = getStatus();
-		if(lowStatus.equals("okay"))
-			return "_happy";
-		else if(lowStatus.equals("sad") || lowStatus.equals("sick"))
-			return "_sad";
-		else
-			return "_serious";
-	}
-
+	abstract String getStatus()
 	abstract void eat();
 	abstract void gettingHungry();
 	abstract void sleep();
@@ -153,9 +84,11 @@ public abstract class Pet
 	abstract void gettingSick();
 	abstract void love();
 	abstract void gettingLonely();
-	abstract void discipline();
+	abstract void talk();
 	abstract void gettingUndisciplined();
 	abstract void play();
+	abstract void shower();
+	abstract void gettingDirty();
 	abstract void gettingBored();
 	abstract void gettingTired();
 }
