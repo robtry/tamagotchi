@@ -32,7 +32,9 @@ public class Tamagochi extends Pet {
 		}
 	}
 	public String getMellowing() {
-		if(age >= 21)
+		if(age > 80)
+			return "old";
+		else if(age >= 21)
 			return "adult" + getFace();
 		else if (age > 12)
 			return "teen" + getFace();

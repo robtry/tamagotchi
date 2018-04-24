@@ -32,6 +32,7 @@ public class InterfazGame extends JFrame implements KeyListener // extends por q
 									 };
 	private byte currenrBtn;
 	private Pet currentPet;
+	private Life timer;
 
 
 	public InterfazGame(Pet currentPet) // constructor
@@ -88,6 +89,8 @@ public class InterfazGame extends JFrame implements KeyListener // extends por q
 		addKeyListener(this);// para que lea desde el teclado
 		setFocusable(true);//para que el panel sea quien lee las teclas
 		setLocationRelativeTo(null);
+
+		timer = new Life();
 	}
 
 	public void paint(Graphics g)
