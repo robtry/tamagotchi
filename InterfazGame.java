@@ -98,16 +98,6 @@ public class InterfazGame extends JFrame implements KeyListener//, ActionListene
 		setFocusable(true);//para que el panel sea quien lee las teclas
 		setLocationRelativeTo(null);
 
-<<<<<<< HEAD
-		life = new Timer(3000, new ActionListener() {
-			@Override
-				public void actionPerformed(ActionEvent e) {
-					currentPet.life();
-					System.out.println(Arrays.toString(currentPet.status));
-			}
-		});
-		animations = new Timer(2000, new ActionListener() {
-=======
 		drawPet = true;
 		statusToDraw = "draws/general/status/"+currentPet.getStatus()+".txt";
 		petToDraw = "draws/main/"+currentPet.getMellowing()+".txt";
@@ -115,11 +105,10 @@ public class InterfazGame extends JFrame implements KeyListener//, ActionListene
 		prevStatus = statusToDraw;
 
 		life = new Timer(10000, new ActionListener() {
->>>>>>> 5efe7a03c7c5b06803c96af3c8b0911eae7eb83c
 			@Override
 				public void actionPerformed(ActionEvent e) {
 					currentPet.life();
-					//System.out.println(Arrays.toString(currentPet.status));
+					System.out.println(Arrays.toString(currentPet.status));
 					checkChanges();
 			}
 		});
