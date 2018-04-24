@@ -1,5 +1,10 @@
 import java.util.Arrays;//Por mientras
 import java.util.Random;
+import java.io.File; // buscar la carpeta
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import java.io.IOException;
+
 public class Tamagochi extends Pet {
 	private int[] valores;
 	private TipoTamagochi tt;
@@ -24,6 +29,30 @@ public class Tamagochi extends Pet {
 			case "LOVELY": tt = TipoTamagochi.LOVELY;
 		}
 		random = new Random();
+	}
+	public void save() {
+		File data = new File("current/data.txt");
+		try
+		{
+			data.createNewFile();
+			FileWriter escritor = new FileWriter(data);
+			PrintWriter pw = new PrintWriter(escritor);
+
+			pw.printf("%s%n", kind);
+			pw.printf("%s%n", name);
+			pw.printf("%s%n", age);
+
+			for(int i = 0; i < status.length; i++) {
+				if(i == status.length - 1) pw.printf("%s", status[i]);
+				else pw.printf("%s%n", status[i]);
+			}
+			escritor.close();
+
+		}
+		catch(IOException ex)
+		{
+			ex.printStackTrace();
+		}
 	}
 	void apply(int index, boolean option, int multiplier, int numMultiplier) {
 		int sum, num;
