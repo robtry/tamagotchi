@@ -42,7 +42,7 @@ public class InterfazGame extends JFrame implements KeyListener, ActionListener
 	private boolean drawPet, playing, bussy;
 	private int op, countTime;
 	private String petToDraw, statusToDraw, prevPet, prevStatus, menuToDraw;
-	private final int timeUnit = 55000; //milisegs
+	private final int timeUnit = 5000; //milisegs
 
 
 	public InterfazGame(Pet currentPet) // constructor
@@ -128,7 +128,7 @@ public class InterfazGame extends JFrame implements KeyListener, ActionListener
 			}
 		});
 
-		during = new Timer(100, this);
+		during = new Timer(1000, this);
 		if(!currentPet.isAlive()) keepPlaying();
 		life.start();
 	}
@@ -394,14 +394,16 @@ public class InterfazGame extends JFrame implements KeyListener, ActionListener
 						countTime = 0;
 						descriptionTag.setText("comida terminada");
 						bussy = false;
-						prevPet = statusToDraw;
+						prevStatus = statusToDraw;
 						checkChanges();
 						during.stop();
+						life.start();
+
 					}
 				break;
 				case 1:
 					descriptionTag.setText("duermiendo en progreso");
-					if(countTime == 20)
+					if(countTime == 8)
 					{
 						countTime = 0;
 						descriptionTag.setText("desperté del sueño");
@@ -410,6 +412,7 @@ public class InterfazGame extends JFrame implements KeyListener, ActionListener
 						bussy = false;
 						checkChanges();
 						during.stop();
+						life.start();
 					}
 				break;
 				case 3:
@@ -422,6 +425,7 @@ public class InterfazGame extends JFrame implements KeyListener, ActionListener
 						prevStatus = statusToDraw;
 						checkChanges();
 						during.stop();
+						life.start();
 					}
 				break;
 				case 4:
@@ -434,6 +438,7 @@ public class InterfazGame extends JFrame implements KeyListener, ActionListener
 						prevStatus = statusToDraw;
 						checkChanges();
 						during.stop();
+						life.start();
 					}
 				break;
 				case 5:
@@ -446,6 +451,7 @@ public class InterfazGame extends JFrame implements KeyListener, ActionListener
 						bussy = false;
 						checkChanges();
 						during.stop();
+						life.start();
 					}
 				break;
 			}
