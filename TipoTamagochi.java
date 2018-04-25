@@ -4,10 +4,10 @@ public enum TipoTamagochi {
     pasa el tiempo y se resta.
   */
   //           eat               sleep             health              love            funny            discipline      energy
-  PLAYER(new int[] {10, 20}, new int[] {10, 20}, new int[] {10, 20}, new int[] {10, 20}, new int[] {10, 40}, new int[] {15, 40}, new int[] {15, 40}),
-  SLEEPY(new int[] {10, 20}, new int[] {10, 40}, new int[] {10, 20}, new int[] {10, 20}, new int[] {10, 20}, new int[] {15, 40}, new int[] {10, 40}),
-DELICATE(new int[] {10, 20}, new int[] {10, 20}, new int[] {10, 40}, new int[] {10, 20}, new int[] {10, 20}, new int[] {15, 40}, new int[] {10, 20}),
-  LOVELY(new int[] {10, 20}, new int[] {10, 20}, new int[] {10, 20}, new int[] {10, 40}, new int[] {10, 20}, new int[] {20, 40}, new int[] {10, 20});
+  PLAYER(new int[] {5, 10}, new int[] {5, 10}, new int[] {5, 10}, new int[] {5, 10}, new int[] {5, 20}, new int[] {15, 30}, new int[] {15, 40}),
+  SLEEPY(new int[] {5, 10}, new int[] {5, 15}, new int[] {5, 10}, new int[] {5, 10}, new int[] {5, 10}, new int[] {15, 15}, new int[] {5, 40}),
+DELICATE(new int[] {5, 10}, new int[] {5, 10}, new int[] {5, 15}, new int[] {5, 10}, new int[] {5, 10}, new int[] {15, 15}, new int[] {5, 10}),
+  LOVELY(new int[] {5, 10}, new int[] {5, 10}, new int[] {5, 10}, new int[] {5, 15}, new int[] {5, 10}, new int[] {10, 15}, new int[] {10, 10});
   private int[][] values;
 
   TipoTamagochi(int[] eat, int[] sleep, int[] health, int[] love, int[] funny, int[] discipline, int[] energy) {
