@@ -57,77 +57,6 @@ public class Tamagochi extends Pet {
 	String getKind() {
 		return kind;
 	}
-	void apply(int index, boolean option, int multiplier, int numMultiplier) {
-		int sum, num;
-
-		sum = 0;
-		num = 0;
-
-		switch(index) {
-			case 0:
-				if(option) {
-					num = tt.sleepSum();
-				} else {
-					num = tt.sleepMinus();
-				}
-			break;
-			case 1:
-			if(option) {
-				num = tt.eatSum();
-			} else {
-				num = tt.eatMinus();
-			}
-			break;
-			case 2:
-			if(option) {
-				num = tt.healthSum();
-			} else {
-				num = tt.healthMinus();
-			}
-			break;
-			case 3:
-			if(option) {
-				num = tt.loveSum();
-			} else {
-				num = tt.loveMinus();
-			}
-			break;
-			case 4:
-			if(option) {
-				num = tt.funSum();
-			} else {
-				num = tt.funMinus();
-			}
-			break;
-			case 5:
-			if(option) {
-				num = tt.disciplineSum();
-			} else {
-				num = tt.disciplineMinus();
-			}
-			break;
-			case 6:
-			if(option) {
-				num = tt.energySum();
-			} else {
-				num = tt.energyMinus();
-			}
-			break;
-			default:
-			break;
-		}
-
-		if(option) {
-			sum = multiplier * this.status[index] + (num * numMultiplier);
-		} else {
-			sum = multiplier * this.status[index] - (num * numMultiplier);
-		}
-
-		if(sum <= 0) this.status[index] = 0;
-		else if(sum >= 100) this.status[index] = 100;
-		else this.status[index] = sum;
-
-	}
 	public String getMellowing() {
 		if(age > 80)
 			return "old";
@@ -227,116 +156,253 @@ public class Tamagochi extends Pet {
 		}
 	}
 	void life() {
-		apply(0, false, 1, 1);
-		apply(1, false, 1, 1);
-		apply(3, false, 1, 1);
-		apply(4, false, 1, 1);
-		apply(6, false, 1, 1);
+		apply(0, false);
+		apply(1, false);
+		apply(3, false);
+		apply(4, false);
+		apply(6, false);
 		conditionals();
 	}
 	void sleep() {
-		apply(0, true, 1, 1);
-		apply(1, false, 1, 1);
-		apply(2, true, 1, 1);
-		apply(3, true, 1, 1);
-		apply(4, true, 1, 1/3);
-		apply(6, true, 1, 1);
+		apply(0, true);
+		apply(1, false, 2);
+		apply(2, true);
+		apply(3, true);
+		apply(4, true);
+		apply(6, true);
 	}
 	void gettingSleepy() {
-		apply(0, false, 1, 2);
 		if(kind.equals("DELICATE")) {
-			apply(2, false, 1, 3);
-		} else apply(2, false, 1, 2);
-		apply(5, false, 1, 2);
-		apply(6, false, 1, 2);
+			gettingSick();
+		}
+		apply(5, false, 2);
+		apply(6, false, 2);
 
 	}
 	void eat() {
-		apply(1, true, 1, 1);
-		apply(6, true, 1, 1);
-		apply(3, true, 1, 1);
+		apply(1, true, 2);
+		apply(3, true);
+		apply(6, true, 2);
 
 		if(kind.equals("DELICATE")) {
 			r = random.nextInt(2);
-			if(r == 1) 		apply(2, true, 1, 1);
-			else 		apply(2, false, 1, 1);
-		} else 		apply(2, true, 1, 1);
+			if(r == 1) gettingSick();
+			else 		apply(2, false);
+		} else 		apply(2, true);
 	}
 	void gettingHungry() {
-		apply(1, false, 1, 1);
-		apply(2, false, 1, 2);
-		apply(3, false, 1, 2);
-		apply(5, false, 1, 3);
-		apply(6, false, 1, 1);
+		apply(2, false);
+		apply(3, false, 2);
+		apply(5, false, 2);
+		apply(6, false, 2);
 	}
 	void health() {
-		apply(2, true, 1, 1);
-		apply(3, false, 1, 1);
-		apply(4, true, 1/2, 1);
+		apply(2, true, 2);
+		apply(3, false);
+		apply(4, false, 2);
 	}
 	void gettingSick() {
-		apply(0, false, 1, 2);
-		apply(2, false, 1, 2);
-		apply(4, false, 1, 3);
-		apply(6, false, 1, 2);
+		apply(0, false);
+		apply(2, false);
+		apply(4, false);
+		apply(6, false);
 	}
 	void love() {
-		apply(3, true, 1, 1);
+		apply(3, true, 2);
 	}
 	void shower() {
 		r = random.nextInt(2);
-		if(r == 1) apply(6, true, 1, 1);
-		else apply(6, false, 1, 1);
+		if(r == 1) apply(2, true, 100);
+		else apply(4, false, 100);
 
 		r = random.nextInt(2);
-		if(r == 1) apply(2, true, 1, 1);
-		else apply(2, false, 1, 3);
-		apply(4, true, 1, 1);
+		if(r == 1) apply(6, true);
+		else apply(6, false);
+
+		r = random.nextInt(2);
+		if(r == 1) apply(2, true);
+		else apply(2, false);
 	}
 	void gettingDirty() {
-		r = random.nextInt(2);
-		if(r == 1) apply(4, true, 1, 2);
-		else apply(4, false, 1, 2);
-		apply(2, false, 1, 2);
+		apply(2, false);
 	}
 	void gettingLonely() {
-		apply(1, false, 1, 1);
-		apply(3, false, 1, 2);
-		apply(4, false, 1, 1);
-		apply(5, false, 1, 1);
-		apply(6, true, 1, 1);
+		apply(1, false);
+		apply(4, false);
+		apply(5, false);
+		apply(6, true);
 	}
 	void play() {
-		apply(1, false, 1, 1);
-		apply(3, true, 1, 1);
-		apply(4, true, 1, 2);
+		apply(1, false, 2);
+		apply(3, true);
+		if(kind.equals("PLAYER")) apply(4, true);
+		else apply(4, true, 2);
 		r = random.nextInt(2);
-		if(r == 1) apply(5, true, 1, 1);
-		else apply(5, false, 1, 1);
-		apply(6, false, 1, 1);
+		apply(6, false, 2);
 	}
 	void gettingBored() {
-		apply(3, false, 1, 1);
-		apply(4, false, 1, 3);
-		apply(5, false, 1, 2);
-		apply(6, true, 1, 1);
+		apply(3, false);
+		apply(5, false, 2);
+		apply(6, true);
 	}
 	void talk() {
 		r = random.nextInt(2);
-		if(r == 1) apply(4, false, 1, 1);
-		apply(5, true, 1, 1);
+		if(r == 1) apply(4, false);
+		apply(5, true, 2);
 		r = random.nextInt(2);
-		if(r == 1) apply(6, false, 1, 1);
+		if(r == 1) apply(6, false);
 	}
 	double gettingUndisciplined() {
 		return (double)(this.status[5]/100);
 	}
 	void gettingTired() {
-		apply(0, false, 1, 3);
-		apply(1, false, 1, 3);
+		apply(0, false, 2);
+		apply(1, false, 2);
 	}
 	boolean isAlive() {
 		if(status[2] <= 0) return false;
 		else return true;
+	}
+	void apply(int index, boolean option, int multiplier) {
+		int sum, num;
+
+		sum = 0;
+		num = 0;
+
+		switch(index) {
+			case 0:
+				if(option) {
+					num = tt.sleepSum();
+				} else {
+					num = tt.sleepMinus();
+				}
+			break;
+			case 1:
+			if(option) {
+				num = tt.eatSum();
+			} else {
+				num = tt.eatMinus();
+			}
+			break;
+			case 2:
+			if(option) {
+				num = tt.healthSum();
+			} else {
+				num = tt.healthMinus();
+			}
+			break;
+			case 3:
+			if(option) {
+				num = tt.loveSum();
+			} else {
+				num = tt.loveMinus();
+			}
+			break;
+			case 4:
+			if(option) {
+				num = tt.funSum();
+			} else {
+				num = tt.funMinus();
+			}
+			break;
+			case 5:
+			if(option) {
+				num = tt.disciplineSum();
+			} else {
+				num = tt.disciplineMinus();
+			}
+			break;
+			case 6:
+			if(option) {
+				num = tt.energySum();
+			} else {
+				num = tt.energyMinus();
+			}
+			break;
+			default:
+			break;
+		}
+
+		if(option) {
+			sum = this.status[index] + (num * multiplier);
+		} else {
+			sum = this.status[index] - (num * multiplier);
+		}
+
+		if(sum <= 0) this.status[index] = 0;
+		else if(sum >= 100) this.status[index] = 100;
+		else this.status[index] = sum;
+
+	}
+	void apply(int index, boolean option) {
+		int sum, num;
+
+		sum = 0;
+		num = 0;
+
+		switch(index) {
+			case 0:
+				if(option) {
+					num = tt.sleepSum();
+				} else {
+					num = tt.sleepMinus();
+				}
+			break;
+			case 1:
+			if(option) {
+				num = tt.eatSum();
+			} else {
+				num = tt.eatMinus();
+			}
+			break;
+			case 2:
+			if(option) {
+				num = tt.healthSum();
+			} else {
+				num = tt.healthMinus();
+			}
+			break;
+			case 3:
+			if(option) {
+				num = tt.loveSum();
+			} else {
+				num = tt.loveMinus();
+			}
+			break;
+			case 4:
+			if(option) {
+				num = tt.funSum();
+			} else {
+				num = tt.funMinus();
+			}
+			break;
+			case 5:
+			if(option) {
+				num = tt.disciplineSum();
+			} else {
+				num = tt.disciplineMinus();
+			}
+			break;
+			case 6:
+			if(option) {
+				num = tt.energySum();
+			} else {
+				num = tt.energyMinus();
+			}
+			break;
+			default:
+			break;
+		}
+
+		if(option) {
+			sum = this.status[index] + (num);
+		} else {
+			sum = this.status[index] - (num);
+		}
+
+		if(sum <= 0) this.status[index] = 0;
+		else if(sum >= 100) this.status[index] = 100;
+		else this.status[index] = sum;
+
 	}
 }

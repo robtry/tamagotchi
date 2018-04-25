@@ -42,7 +42,7 @@ public class InterfazGame extends JFrame implements KeyListener, ActionListener
 	private boolean drawPet, playing, bussy;
 	private int op, countTime;
 	private String petToDraw, statusToDraw, prevPet, prevStatus, menuToDraw;
-	private final int timeUnit = 5000; //milisegs
+	private final int timeUnit = 55000; //milisegs
 
 
 	public InterfazGame(Pet currentPet) // constructor
@@ -128,7 +128,7 @@ public class InterfazGame extends JFrame implements KeyListener, ActionListener
 			}
 		});
 
-		during = new Timer(timeUnit/60, this);
+		during = new Timer(100, this);
 		if(!currentPet.isAlive()) keepPlaying();
 		life.start();
 	}
@@ -283,8 +283,8 @@ public class InterfazGame extends JFrame implements KeyListener, ActionListener
 						}
 					}
 					playing = false;
+					selectedButtonTag.setText("press down");
 					repaint();
-					life.start();
 			}
 		}
 	}
@@ -317,6 +317,7 @@ public class InterfazGame extends JFrame implements KeyListener, ActionListener
 					op = rand.nextInt(3);
 					playing = true;
 					currentPet.play();
+					descriptionTag.setText("guess <-- or -->");
 					if(op == 0) statusToDraw = "draws/general/status/play/left.txt";
 					else statusToDraw = "draws/general/status/play/right.txt";
 				break;
@@ -361,8 +362,17 @@ public class InterfazGame extends JFrame implements KeyListener, ActionListener
 		}
 		else  if( e.getKeyCode() == KeyEvent.VK_DOWN)
 		{
-			if((!during.isRunning() || !bussy) && drawPet)
+			if((currentBtn == 2 && !playing && bussy) || (currentBtn == 6 && bussy))
 			{
+				//play o medir
+				bussy = false;
+				life.start();
+				prevStatus = statusToDraw;
+				checkChanges();
+			}
+			else if(currentBtn == 7 && !drawPet && bussy)
+			{
+				// help
 				drawPet = true;
 				bussy = false;
 				life.start();
@@ -383,6 +393,9 @@ public class InterfazGame extends JFrame implements KeyListener, ActionListener
 					{
 						countTime = 0;
 						descriptionTag.setText("comida terminada");
+						bussy = false;
+						prevPet = statusToDraw;
+						checkChanges();
 						during.stop();
 					}
 				break;
@@ -390,8 +403,12 @@ public class InterfazGame extends JFrame implements KeyListener, ActionListener
 					descriptionTag.setText("duermiendo en progreso");
 					if(countTime == 20)
 					{
-						descriptionTag.setText("desperté del sueño");
 						countTime = 0;
+						descriptionTag.setText("desperté del sueño");
+						drawPet = true;
+						prevPet = menuToDraw;
+						bussy = false;
+						checkChanges();
 						during.stop();
 					}
 				break;
@@ -399,8 +416,11 @@ public class InterfazGame extends JFrame implements KeyListener, ActionListener
 					descriptionTag.setText("curando en progreso");
 					if(countTime == 2)
 					{
-						descriptionTag.setText("listo pa los madrazos");
 						countTime = 0;
+						descriptionTag.setText("listo pa los madrazos");
+						bussy = false;
+						prevStatus = statusToDraw;
+						checkChanges();
 						during.stop();
 					}
 				break;
@@ -408,8 +428,11 @@ public class InterfazGame extends JFrame implements KeyListener, ActionListener
 					descriptionTag.setText("bañando en progreso");
 					if(countTime == 8)
 					{
-						descriptionTag.setText("a conquistar nenas");
 						countTime = 0;
+						descriptionTag.setText("a conquistar nenas");
+						bussy = false;
+						prevStatus = statusToDraw;
+						checkChanges();
 						during.stop();
 					}
 				break;
@@ -419,6 +442,9 @@ public class InterfazGame extends JFrame implements KeyListener, ActionListener
 					{
 						descriptionTag.setText("better person now");
 						countTime = 0;
+						prevStatus = statusToDraw;
+						bussy = false;
+						checkChanges();
 						during.stop();
 					}
 				break;
