@@ -263,7 +263,7 @@ public class Tamagochi extends Pet {
 		} else 		apply(2, true, 1, 1);
 	}
 	void gettingHungry() {
-		apply(1, false, 1, 2);
+		apply(1, false, 1, 1);
 		apply(2, false, 1, 2);
 		apply(3, false, 1, 2);
 		apply(5, false, 1, 3);
@@ -334,5 +334,9 @@ public class Tamagochi extends Pet {
 	void gettingTired() {
 		apply(0, false, 1, 3);
 		apply(1, false, 1, 3);
+	}
+	boolean isAlive() {
+		if(status[2] <= 0) return false;
+		else return true;
 	}
 }

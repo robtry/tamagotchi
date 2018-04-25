@@ -2,6 +2,7 @@ import java.io.File; // buscar la carpeta
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.io.IOException;
+import java.util.Arrays;
 public abstract class Pet
 {
 	protected String name;
@@ -65,11 +66,13 @@ public abstract class Pet
 		return age;
 	}
 	public String printStatus() {
-		String status = "[S-"+this.status[0]+", Hu-"+this.status[1]+", He-"+this.status[2]
-		+", L-"+this.status[3]+", F-"+this.status[4]+", D-"+this.status[5]+", E-"+this.status[6]+"]";
+		// String status = "[S-"+this.status[0]+", Hu-"+this.status[1]+", He-"+this.status[2]
+		// +", L-"+this.status[3]+", F-"+this.status[4]+", D-"+this.status[5]+", E-"+this.status[6]+"]";
+		String status = Arrays.toString(this.status);
 
 		return status;
 	}
+	abstract boolean isAlive();
 	abstract void life();
 	abstract void save();
 	abstract String getMellowing();

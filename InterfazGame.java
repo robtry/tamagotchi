@@ -42,7 +42,7 @@ public class InterfazGame extends JFrame implements KeyListener, ActionListener
 	private boolean drawPet, playing, bussy;
 	private int op, countTime;
 	private String petToDraw, statusToDraw, prevPet, prevStatus, menuToDraw;
-	private int final timeUnit = 60000; //milisegs
+	private final int timeUnit = 5000; //milisegs
 
 
 	public InterfazGame(Pet currentPet) // constructor
@@ -119,14 +119,17 @@ public class InterfazGame extends JFrame implements KeyListener, ActionListener
 			@Override
 				public void actionPerformed(ActionEvent e) {
 					currentPet.life();
-					System.out.println(Arrays.toString(currentPet.status));
-					checkChanges();
+					if(!currentPet.isAlive()) keepPlaying();
+					else {
+						System.out.println(Arrays.toString(currentPet.status));
+						checkChanges();
+					}
 					currentPet.save();
 			}
 		});
 
 		during = new Timer(timeUnit/60, this);
-
+		if(!currentPet.isAlive()) keepPlaying();
 		life.start();
 	}
 
@@ -299,42 +302,48 @@ public class InterfazGame extends JFrame implements KeyListener, ActionListener
 					if(op == 0)	statusToDraw = "draws/general/status/eat/muffin.txt";
 					else if(op == 1) statusToDraw = "draws/general/status/eat/soup.txt";
 					else if (op == 2) statusToDraw = "draws/general/status/eat/apple.txt";
+					currentPet.eat();
 					during.start();
 				break;
 				case 1:
 					//sleep
 					drawPet = false;
 					menuToDraw = "draws/general/light/sleeping.txt";
+					currentPet.sleep();
 					during.start();
 				break;
 				case 2:
 					//play
 					op = rand.nextInt(3);
 					playing = true;
+					currentPet.play();
 					if(op == 0) statusToDraw = "draws/general/status/play/left.txt";
 					else statusToDraw = "draws/general/status/play/right.txt";
 				break;
 				case 3:
 				//curar
 					op = rand.nextInt(3);
+					currentPet.health();
 					if(op == 0) statusToDraw = "draws/general/status/health/pills.txt";
 					else statusToDraw = "draws/general/status/health/syringe.txt";
 					during.start();
 				break;
 				case 4:
 				//shower
+					currentPet.shower();
 					during.start();
 					statusToDraw = "draws/general/status/shower/shower.txt";
 				break;
 				case 5:
 				//talk
+					currentPet.talk();
 					during.start();
 					statusToDraw = "draws/general/status/talk/talking.txt";
 				break;
 				case 6:
 				//medidor
 					statusToDraw = "draws/general/status/status/status.txt";
-					descriptionTag.setText(currentPet.printStatus);
+					descriptionTag.setText(currentPet.printStatus());
 				break;
 				case 7:
 				//help
@@ -343,6 +352,7 @@ public class InterfazGame extends JFrame implements KeyListener, ActionListener
 				break;
 			}
 			bussy = true;
+			currentPet.save();
 			if(!playing)
 			{
 				repaint();
@@ -428,5 +438,12 @@ public class InterfazGame extends JFrame implements KeyListener, ActionListener
 			repaint();
 		}
 	}
-
+private void keepPlaying() {
+	during.stop();
+	life.stop();
+	drawPet = false;
+	menuToDraw = "draws/general/health/death.txt";
+	bussy = true;
+	repaint();
+}
 }
