@@ -161,6 +161,7 @@ public class Tamagochi extends Pet {
 		apply(3, false);
 		apply(4, false);
 		apply(6, false);
+		age++;
 		conditionals();
 	}
 	void sleep() {
@@ -211,9 +212,9 @@ public class Tamagochi extends Pet {
 		apply(3, true, 2);
 	}
 	void shower() {
-		r = random.nextInt(2);
-		if(r == 1) apply(2, true, 100);
-		else apply(4, false, 100);
+		double r2 = random.nextDouble();
+		if(r2 > .95) apply(2, false, 100);
+		else apply(2, true);
 
 		r = random.nextInt(2);
 		if(r == 1) apply(6, true);

@@ -42,7 +42,7 @@ public class InterfazGame extends JFrame implements KeyListener, ActionListener
 	private boolean drawPet, playing, bussy;
 	private int op, countTime;
 	private String petToDraw, statusToDraw, prevPet, prevStatus, menuToDraw;
-	private final int timeUnit = 5000; //milisegs
+	private final int timeUnit = 3000; //milisegs
 
 
 	public InterfazGame(Pet currentPet) // constructor
@@ -128,7 +128,7 @@ public class InterfazGame extends JFrame implements KeyListener, ActionListener
 			}
 		});
 
-		during = new Timer(1000, this);
+		during = new Timer(100, this);
 		if(!currentPet.isAlive()) keepPlaying();
 		life.start();
 	}
@@ -258,28 +258,31 @@ public class InterfazGame extends JFrame implements KeyListener, ActionListener
 					optionBtns.get(currentBtn).setEnabled(true);
 					selectedButtonTag.setText(images[currentBtn]);
 			}
+			else if(bussy && currentBtn == 0) {
+				selectedButtonTag.setText("Wait for him to finish!");
+			}
 			else if(playing)
 			{
 					if (e.getKeyCode() == KeyEvent.VK_LEFT)
 					{
 						if(op == 0)
 						{
-							descriptionTag.setText("Ganaste");
+							descriptionTag.setText("He lost!f");
 						}
 						else
 						{
-							descriptionTag.setText("Perdiste");
+							descriptionTag.setText("He won!");
 						}
 					}
 					else
 					{
 						if(op == 0)
 						{
-							descriptionTag.setText("Perdiste");
+							descriptionTag.setText("You lost, loser!");
 						}
 						else
 						{
-							descriptionTag.setText("Ganaste");
+							descriptionTag.setText("You won, lucky guy!");
 						}
 					}
 					playing = false;
@@ -302,6 +305,7 @@ public class InterfazGame extends JFrame implements KeyListener, ActionListener
 					if(op == 0)	statusToDraw = "draws/general/status/eat/muffin.txt";
 					else if(op == 1) statusToDraw = "draws/general/status/eat/soup.txt";
 					else if (op == 2) statusToDraw = "draws/general/status/eat/apple.txt";
+					selectedButtonTag.setText("Yummy!");
 					currentPet.eat();
 					during.start();
 				break;
@@ -388,11 +392,11 @@ public class InterfazGame extends JFrame implements KeyListener, ActionListener
 			switch (currentBtn)
 			{
 				case 0:
-					descriptionTag.setText("comiendo en progreso");
+					descriptionTag.setText("eating now");
 					if (countTime == 4)
 					{
 						countTime = 0;
-						descriptionTag.setText("comida terminada");
+						descriptionTag.setText("finished eating");
 						bussy = false;
 						prevStatus = statusToDraw;
 						checkChanges();
@@ -402,11 +406,11 @@ public class InterfazGame extends JFrame implements KeyListener, ActionListener
 					}
 				break;
 				case 1:
-					descriptionTag.setText("duermiendo en progreso");
+					descriptionTag.setText("sleeping like a baby");
 					if(countTime == 8)
 					{
 						countTime = 0;
-						descriptionTag.setText("desperté del sueño");
+						descriptionTag.setText("awake and ready");
 						drawPet = true;
 						prevPet = menuToDraw;
 						bussy = false;
@@ -416,11 +420,11 @@ public class InterfazGame extends JFrame implements KeyListener, ActionListener
 					}
 				break;
 				case 3:
-					descriptionTag.setText("curando en progreso");
+					descriptionTag.setText("getting better");
 					if(countTime == 2)
 					{
 						countTime = 0;
-						descriptionTag.setText("listo pa los madrazos");
+						descriptionTag.setText("ready to fight");
 						bussy = false;
 						prevStatus = statusToDraw;
 						checkChanges();
@@ -429,7 +433,7 @@ public class InterfazGame extends JFrame implements KeyListener, ActionListener
 					}
 				break;
 				case 4:
-					descriptionTag.setText("bañando en progreso");
+					descriptionTag.setText("bathing");
 					if(countTime == 8)
 					{
 						countTime = 0;
@@ -442,10 +446,10 @@ public class InterfazGame extends JFrame implements KeyListener, ActionListener
 					}
 				break;
 				case 5:
-					descriptionTag.setText("regaño en progreso");
+					descriptionTag.setText("grounding in progress");
 					if(countTime == 5)
 					{
-						descriptionTag.setText("better person now");
+						descriptionTag.setText("better tamagochi now");
 						countTime = 0;
 						prevStatus = statusToDraw;
 						bussy = false;
