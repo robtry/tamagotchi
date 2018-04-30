@@ -92,4 +92,8 @@ public abstract class Pet
 	abstract void gettingDirty();
 	abstract void gettingBored();
 	abstract void gettingTired();
+	abstract int getTimeEating();
+	abstract int getTimeSleeping();
+	abstract int getTimeHealthing();
+	abstract int getTimeDiciplining();
 }

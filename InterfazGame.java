@@ -40,7 +40,7 @@ public class InterfazGame extends JFrame implements KeyListener, ActionListener
 	private Timer life;
 	private Timer during;
 	private boolean drawPet, playing, bussy;
-	private int op, countTime;
+	private int op, countTime, stopCountTime;
 	private String petToDraw, statusToDraw, prevPet, prevStatus, menuToDraw;
 	private final int timeUnit = 60000, timeMiniUnit = 1000; //milisegs
 
@@ -113,6 +113,7 @@ public class InterfazGame extends JFrame implements KeyListener, ActionListener
 		playing = false;
 		op = 0;
 		countTime = 0;
+		stopCountTime = 0;
 
 		statusToDraw = "draws/general/status/"+currentPet.getStatus()+".txt";
 		petToDraw = "draws/main/"+currentPet.getMellowing()+".txt";
@@ -315,6 +316,7 @@ public class InterfazGame extends JFrame implements KeyListener, ActionListener
 			{
 				case 0:
 					//eat
+					stopCountTime = currentPet.getTimeEating();
 					op = rand.nextInt(4);
 					if(op == 0)	statusToDraw = "draws/general/status/eat/muffin.txt";
 					else if(op == 1) statusToDraw = "draws/general/status/eat/soup.txt";
@@ -325,6 +327,7 @@ public class InterfazGame extends JFrame implements KeyListener, ActionListener
 				break;
 				case 1:
 					//sleep
+					stopCountTime = currentPet.getTimeSleeping();
 					drawPet = false;
 					menuToDraw = "draws/general/light/sleeping.txt";
 					currentPet.sleep();
@@ -342,6 +345,7 @@ public class InterfazGame extends JFrame implements KeyListener, ActionListener
 				break;
 				case 3:
 				//curar
+					stopCountTime = currentPet.getTimeHealthing();
 					op = rand.nextInt(3);
 					currentPet.health();
 					if(op == 0) statusToDraw = "draws/general/status/health/pills.txt";
@@ -350,12 +354,14 @@ public class InterfazGame extends JFrame implements KeyListener, ActionListener
 				break;
 				case 4:
 				//shower
+					stopCountTime = 8;
 					currentPet.shower();
 					during.start();
 					statusToDraw = "draws/general/status/shower/shower.txt";
 				break;
 				case 5:
 				//talk
+					stopCountTime = currentPet.getTimeDiciplining();
 					currentPet.talk();
 					during.start();
 					statusToDraw = "draws/general/status/talk/talking.txt";
@@ -424,7 +430,7 @@ public class InterfazGame extends JFrame implements KeyListener, ActionListener
 				case 0:
 					descriptionTag.setText("eating now");
 					selectedButtonTag.setText("Yummy!");
-					if (countTime == 4)
+					if (countTime == stopCountTime)
 					{
 						countTime = 0;
 						selectedButtonTag.setText("finished eating");
@@ -439,7 +445,7 @@ public class InterfazGame extends JFrame implements KeyListener, ActionListener
 				case 1:
 					descriptionTag.setText("sleeping like a baby");
 					selectedButtonTag.setText("snoring");
-					if(countTime == 8)
+					if(countTime == stopCountTime)
 					{
 						countTime = 0;
 						selectedButtonTag.setText("awake and ready");
@@ -455,7 +461,7 @@ public class InterfazGame extends JFrame implements KeyListener, ActionListener
 				case 3:
 					descriptionTag.setText("getting better");
 					selectedButtonTag.setText("crying");
-					if(countTime == 2)
+					if(countTime == stopCountTime)
 					{
 						countTime = 0;
 						selectedButtonTag.setText("feeling heathier");
@@ -470,7 +476,7 @@ public class InterfazGame extends JFrame implements KeyListener, ActionListener
 				case 4:
 					descriptionTag.setText("bathing");
 					selectedButtonTag.setText("singing in the shower");
-					if(countTime == 8)
+					if(countTime == stopCountTime)
 					{
 						countTime = 0;
 						selectedButtonTag.setText("ready to mingle");
@@ -485,9 +491,9 @@ public class InterfazGame extends JFrame implements KeyListener, ActionListener
 				case 5:
 					descriptionTag.setText("grounding in progress");
 					selectedButtonTag.setText("listening with atention");
-					if(countTime == 5)
+					if(countTime == stopCountTime)
 					{
-							selectedButtonTag.setText("better pet now");
+						selectedButtonTag.setText("better pet now");
 						countTime = 0;
 						prevStatus = statusToDraw;
 						bussy = false;
