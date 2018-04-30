@@ -35,14 +35,14 @@ public class InterfazGame extends JFrame implements KeyListener, ActionListener
 										"measurer", //statusBtn [6]
 										"help" // helpBtn [7] "suggestion" //sugestButon[8]
 									 };
-	private byte currentBtn;
+	private byte currentBtn, temp;
 	private Pet currentPet;
 	private Timer life;
 	private Timer during;
 	private boolean drawPet, playing, bussy;
 	private int op, countTime;
 	private String petToDraw, statusToDraw, prevPet, prevStatus, menuToDraw;
-	private final int timeUnit = 3000; //milisegs
+	private final int timeUnit = 60000, timeMiniUnit = 1000; //milisegs
 
 
 	public InterfazGame(Pet currentPet) // constructor
@@ -91,9 +91,13 @@ public class InterfazGame extends JFrame implements KeyListener, ActionListener
 		containerTags.add(selectedButtonTag);
 		containerTags.add(descriptionTag);
 
-		currentBtn = 0;
-		optionBtns.get(currentBtn).setEnabled(true);
-		selectedButtonTag.setText(images[currentBtn]);
+		if(currentPet.isAlive())
+		{
+			currentBtn = 0;
+			optionBtns.get(currentBtn).setEnabled(true);
+			selectedButtonTag.setText("eat something");
+			descriptionTag.setText("press <-- or --> to move");
+		}
 
 		add(containerOptions);
 		add(containerTags, BorderLayout.SOUTH);
@@ -119,7 +123,7 @@ public class InterfazGame extends JFrame implements KeyListener, ActionListener
 			@Override
 				public void actionPerformed(ActionEvent e) {
 					currentPet.life();
-					if(!currentPet.isAlive()) keepPlaying();
+					if(!currentPet.isAlive()) stopPlaying();
 					else {
 						System.out.println(Arrays.toString(currentPet.status));
 						checkChanges();
@@ -128,9 +132,10 @@ public class InterfazGame extends JFrame implements KeyListener, ActionListener
 			}
 		});
 
-		during = new Timer(100, this);
-		if(!currentPet.isAlive()) keepPlaying();
-		life.start();
+		during = new Timer(timeMiniUnit, this);
+
+		if(!currentPet.isAlive()) stopPlaying();
+		else if(!showInstructionsAgain()) life.start();
 	}
 
 	public void paint(Graphics g)
@@ -239,27 +244,32 @@ public class InterfazGame extends JFrame implements KeyListener, ActionListener
 		{
 			if(!bussy)
 			{
-					byte temp = currentBtn;
+					temp = currentBtn;
+
 					if (e.getKeyCode() == KeyEvent.VK_RIGHT)
 					{
-						if(currentBtn == images.length-1)
-						currentBtn = 0;
-						else
-						currentBtn++;
+						if(currentBtn == images.length-1) currentBtn = 0;
+						else currentBtn++;
 					}
 					else
 					{
-						if(currentBtn == 0)
-						currentBtn = (byte)(images.length-1);
-						else
-						currentBtn--;
+						if(currentBtn == 0) currentBtn = (byte)(images.length-1);
+						else currentBtn--;
 					}
+
 					optionBtns.get(temp).setEnabled(false);
 					optionBtns.get(currentBtn).setEnabled(true);
-					selectedButtonTag.setText(images[currentBtn]);
+
+					tagsMainMenu();
+					descriptionTag.setText("Press up to join");
 			}
-			else if(bussy && currentBtn == 0) {
+			else if(bussy && (currentBtn == 0 || currentBtn == 4) && during.isRunning())
+			{
 				selectedButtonTag.setText("Wait for him to finish!");
+			}
+			else if(bussy && currentBtn == 1 && during.isRunning())
+			{
+				selectedButtonTag.setText("You can't wake him up!");
 			}
 			else if(playing)
 			{
@@ -267,7 +277,7 @@ public class InterfazGame extends JFrame implements KeyListener, ActionListener
 					{
 						if(op == 0)
 						{
-							descriptionTag.setText("He lost!f");
+							descriptionTag.setText("He lost!");
 						}
 						else
 						{
@@ -286,8 +296,12 @@ public class InterfazGame extends JFrame implements KeyListener, ActionListener
 						}
 					}
 					playing = false;
-					selectedButtonTag.setText("press down");
+					selectedButtonTag.setText("Press down for main menu");
 					repaint();
+			}
+			else if(bussy && currentBtn == 5 && during.isRunning())
+			{
+				selectedButtonTag.setText("Wait, keep talking");
 			}
 		}
 	}
@@ -322,6 +336,7 @@ public class InterfazGame extends JFrame implements KeyListener, ActionListener
 					playing = true;
 					currentPet.play();
 					descriptionTag.setText("guess <-- or -->");
+					selectedButtonTag.setText("playing now!");
 					if(op == 0) statusToDraw = "draws/general/status/play/left.txt";
 					else statusToDraw = "draws/general/status/play/right.txt";
 				break;
@@ -348,12 +363,15 @@ public class InterfazGame extends JFrame implements KeyListener, ActionListener
 				case 6:
 				//medidor
 					statusToDraw = "draws/general/status/status/status.txt";
-					descriptionTag.setText(currentPet.printStatus());
+					selectedButtonTag.setText(currentPet.statusToStringA());
+					descriptionTag.setText(currentPet.statusToStringB() + " press down");
 				break;
 				case 7:
 				//help
 					drawPet = false;
 					menuToDraw = "draws/general/help/help.txt";
+					selectedButtonTag.setText("showing controls now!");
+					descriptionTag.setText("Press down for menu");
 				break;
 			}
 			bussy = true;
@@ -368,11 +386,21 @@ public class InterfazGame extends JFrame implements KeyListener, ActionListener
 		{
 			if((currentBtn == 2 && !playing && bussy) || (currentBtn == 6 && bussy))
 			{
-				//play o medir
+				//play o medir o help
 				bussy = false;
 				life.start();
 				prevStatus = statusToDraw;
 				checkChanges();
+				if(!playing && currentBtn == 2)
+				{
+					selectedButtonTag.setText("happier now");
+					descriptionTag.setText("press <-- or --> to move");
+				}
+				else
+				{
+					tagsMainMenu();
+					descriptionTag.setText("press <-- or --> to move");
+				}
 			}
 			else if(currentBtn == 7 && !drawPet && bussy)
 			{
@@ -380,12 +408,14 @@ public class InterfazGame extends JFrame implements KeyListener, ActionListener
 				drawPet = true;
 				bussy = false;
 				life.start();
+				tagsMainMenu();
+				descriptionTag.setText("press <-- or --> to move");
 				repaint();
 			}
 		}
 	}
 
-	@Override
+	@Override //during
 	public void actionPerformed(ActionEvent e)
 	{
 		countTime++;
@@ -393,69 +423,78 @@ public class InterfazGame extends JFrame implements KeyListener, ActionListener
 			{
 				case 0:
 					descriptionTag.setText("eating now");
+					selectedButtonTag.setText("Yummy!");
 					if (countTime == 4)
 					{
 						countTime = 0;
-						descriptionTag.setText("finished eating");
-						bussy = false;
+						selectedButtonTag.setText("finished eating");
 						prevStatus = statusToDraw;
+						bussy = false;
 						checkChanges();
 						during.stop();
 						life.start();
-
+						descriptionTag.setText("press <-- or --> to move");
 					}
 				break;
 				case 1:
 					descriptionTag.setText("sleeping like a baby");
+					selectedButtonTag.setText("snoring");
 					if(countTime == 8)
 					{
 						countTime = 0;
-						descriptionTag.setText("awake and ready");
+						selectedButtonTag.setText("awake and ready");
 						drawPet = true;
 						prevPet = menuToDraw;
 						bussy = false;
 						checkChanges();
 						during.stop();
 						life.start();
+						descriptionTag.setText("press <-- or --> to move");
 					}
 				break;
 				case 3:
 					descriptionTag.setText("getting better");
+					selectedButtonTag.setText("crying");
 					if(countTime == 2)
 					{
 						countTime = 0;
-						descriptionTag.setText("ready to fight");
+						selectedButtonTag.setText("feeling heathier");
 						bussy = false;
 						prevStatus = statusToDraw;
 						checkChanges();
 						during.stop();
 						life.start();
+						descriptionTag.setText("press <-- or --> to move");
 					}
 				break;
 				case 4:
 					descriptionTag.setText("bathing");
+					selectedButtonTag.setText("singing in the shower");
 					if(countTime == 8)
 					{
 						countTime = 0;
-						descriptionTag.setText("a conquistar nenas");
+						selectedButtonTag.setText("ready to mingle");
 						bussy = false;
 						prevStatus = statusToDraw;
 						checkChanges();
 						during.stop();
 						life.start();
+						descriptionTag.setText("press <-- or --> to move");
 					}
 				break;
 				case 5:
 					descriptionTag.setText("grounding in progress");
+					selectedButtonTag.setText("listening with atention");
 					if(countTime == 5)
 					{
-						descriptionTag.setText("better tamagochi now");
+							selectedButtonTag.setText("better pet now");
 						countTime = 0;
 						prevStatus = statusToDraw;
 						bussy = false;
 						checkChanges();
 						during.stop();
 						life.start();
+						descriptionTag.setText("press <-- or --> to move");
 					}
 				break;
 			}
@@ -474,12 +513,73 @@ public class InterfazGame extends JFrame implements KeyListener, ActionListener
 			repaint();
 		}
 	}
-private void keepPlaying() {
-	during.stop();
-	life.stop();
-	drawPet = false;
-	menuToDraw = "draws/general/health/death.txt";
-	bussy = true;
-	repaint();
-}
+
+	private void stopPlaying() {
+		during.stop();
+		life.stop();
+		drawPet = false;
+		menuToDraw = "draws/general/health/death.txt";
+		bussy = true;
+		repaint();
+	}
+
+	public void showInstructions()
+	{
+		if(currentPet.isAlive())
+		{
+			int n = JOptionPane.showConfirmDialog(this, "Please always show suggestions below \n\nKeep remebering?", "Tip ;)",  JOptionPane.YES_NO_OPTION);
+			if(n != 0)
+			{
+				File element = new File("current/showhelp.txt");
+				element.delete();
+			}
+			life.start();
+		}
+	}
+
+	public boolean showInstructionsAgain()
+	{
+		boolean found = false;
+		File dir = new File("current");
+		File[] files = dir.listFiles();
+		for (File file : files)
+		{
+				if (file.getName().equals("showhelp.txt"))
+				{
+					found = true;
+				}
+		}
+		return found;
+	}
+
+	private void tagsMainMenu()
+	{
+		switch(currentBtn)
+		{
+			case 0:
+				selectedButtonTag.setText("eat something");
+			break;
+			case 1:
+				selectedButtonTag.setText("go to sleep");
+			break;
+			case 2:
+				selectedButtonTag.setText("play a game");
+			break;
+			case 3:
+				selectedButtonTag.setText("give medicine");
+			break;
+			case 4:
+				selectedButtonTag.setText("take a shower");
+			break;
+			case 5:
+				selectedButtonTag.setText("talk with him");
+			break;
+			case 6:
+				selectedButtonTag.setText("show status");
+			break;
+			case 7:
+				selectedButtonTag.setText("see controls");
+			break;
+		}
+	}
 }

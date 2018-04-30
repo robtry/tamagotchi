@@ -187,10 +187,12 @@ public class InterfazMenu extends JFrame implements KeyListener
 					}
 
 					File data = new File("current/data.txt");
+					File inst = new File("current/showhelp.txt");
 					Random rndm = new Random();
 
 					try
 					{
+						inst.createNewFile();
 						data.createNewFile();
 						FileWriter escritor = new FileWriter(data);
 						PrintWriter pw = new PrintWriter(escritor);
@@ -218,8 +220,8 @@ public class InterfazMenu extends JFrame implements KeyListener
 						Pet currentPet = new Tamagochi(name, 0, sleep, hungry, health, love, funny, discipline, energy, kind);
 						InterfazGame g = new InterfazGame(currentPet);
 						g.setVisible(true);
-						//g.repaint();
 						dispose();
+						g.showInstructions();
 					}
 					catch(IOException ex)
 					{
@@ -232,6 +234,11 @@ public class InterfazMenu extends JFrame implements KeyListener
 		{
 			dispose();
 		}
+	}
+
+	public void showInstructions()
+	{
+		JOptionPane.showMessageDialog(null, "Please review always suggestions down");
 	}
 
 }
