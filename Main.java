@@ -1,7 +1,8 @@
 import java.io.FileReader;
 import java.io.BufferedReader;
 import java.io.IOException;
-
+import java.util.Scanner;
+import java.util.Arrays;
 public class Main
 {
 	public static void main(String[] args) throws IOException
@@ -13,18 +14,22 @@ public class Main
 		{
 			Pet currentPet = null;
 			String datoLeido = "";
-			String[] todosDatos = new String[10];
+			String[] todosDatos = new String[11];
 			byte count = 0;
-
+			Encriptador encriptador = new Encriptador();
+			int noSecreto = 0;
 			BufferedReader br = null;
 			br = new BufferedReader(new FileReader("current/data.txt"));
 
-			while((datoLeido = br.readLine())!=null)
-			{
-				todosDatos[count] = datoLeido;
-				count++;
-			}
+			datoLeido = br.readLine();
+			Scanner scan = new Scanner(datoLeido);
+			scan.useDelimiter(" ");
+			noSecreto = scan.nextInt();
+			datoLeido = datoLeido.substring(datoLeido.indexOf(" ") + 1, datoLeido.length());
+			datoLeido = encriptador.desencriptar(datoLeido, noSecreto);
+			todosDatos = datoLeido.split("\n");
 			br.close();
+
 
 			String classBelong = todosDatos[0];
 			String nombre = todosDatos[1];

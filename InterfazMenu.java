@@ -17,6 +17,7 @@ public class InterfazMenu extends JFrame implements KeyListener
 	//NO CAMBIAR LAS DIMENSIONES!
 	private final short largo = 450; //35 cuadritos || filas
 	private final short ancho = 350; //35 cuadritos || columnas
+	private int noSecreto;
 	private JLabel instructionTag, possibleActionTag;
 	private JPanel containerTags, backgorund;
 	private final String[] menu =
@@ -152,7 +153,7 @@ public class InterfazMenu extends JFrame implements KeyListener
 			{
 				//System.out.println("intanciar y todo");
 				possibleActionTag.setText("Write a name");
-				instructionTag.setText("This was choosed");
+				instructionTag.setText("This was chose");
 				String name;
 				name = JOptionPane.showInputDialog("Name of your Tamagotchi","A simple name");
 				if(name == null)
@@ -164,6 +165,7 @@ public class InterfazMenu extends JFrame implements KeyListener
 				{
 					//crear carpeta que tendra
 					File dir = new File("current");
+					Encriptador encriptador = new Encriptador();
 					dir.mkdir();
 					String kind = "";
 
@@ -204,17 +206,14 @@ public class InterfazMenu extends JFrame implements KeyListener
 						funny = rndm.nextInt(50)+50;
 						discipline = rndm.nextInt(50)+50;
 						energy = rndm.nextInt(50)+50;
+						String valores = kind+"\n"+name+"\n"+"0\n"+sleep+"\n"+hungry+"\n"+health+"\n"+love+"\n"+funny+"\n"+discipline+"\n"+energy;
+						valores = encriptador.encriptar(valores);
+						noSecreto = encriptador.darNumeroSecreto();
 
-						pw.printf("%s%n", kind);
-						pw.printf("%s%n", name);
-						pw.printf("%d%n", 0);
-						pw.printf("%d%n", sleep);
-						pw.printf("%d%n", hungry);
-						pw.printf("%d%n", health);
-						pw.printf("%d%n", love);
-						pw.printf("%d%n", funny);
-						pw.printf("%d%n", discipline);
-						pw.printf("%d", energy);
+						pw.print(noSecreto + " ");
+						pw.print(valores);
+
+
 
 						escritor.close();
 						Pet currentPet = new Tamagochi(name, 0, sleep, hungry, health, love, funny, discipline, energy, kind);

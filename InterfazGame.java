@@ -546,11 +546,7 @@ public class InterfazGame extends JFrame implements KeyListener, ActionListener
 					if(countTime == stopCountTime)
 					{
 						countTime = 0;
-<<<<<<< HEAD
-						descriptionTag.setText("ready to mingle");
-=======
 						selectedButtonTag.setText("ready to mingle");
->>>>>>> cc8008c2341e4cbc5e265f5fe0114f56e6815f52
 						bussy = false;
 						prevStatus = statusToDraw;
 						checkChanges();
