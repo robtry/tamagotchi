@@ -437,7 +437,7 @@ public class InterfazGame extends JFrame implements KeyListener, ActionListener
 					if(countTime == 8)
 					{
 						countTime = 0;
-						descriptionTag.setText("a conquistar nenas");
+						descriptionTag.setText("ready to mingle");
 						bussy = false;
 						prevStatus = statusToDraw;
 						checkChanges();
