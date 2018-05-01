@@ -65,12 +65,12 @@ public abstract class Pet
 	{
 		return age;
 	}
-	public String printStatus() {
-		// String status = "[S-"+this.status[0]+", Hu-"+this.status[1]+", He-"+this.status[2]
-		// +", L-"+this.status[3]+", F-"+this.status[4]+", D-"+this.status[5]+", E-"+this.status[6]+"]";
-		String status = Arrays.toString(this.status);
-
-		return status;
+	public String statusToStringA() {
+		return "["+this.status[0]+", "+this.status[1]+", "+this.status[2] +", "+this.status[3] + ", " +
+					this.status[4] + ", ";
+	}
+	public String statusToStringB() {
+		return this.status[5]+", "+this.status[6]+"]";
 	}
 	abstract boolean isAlive();
 	abstract void life();
@@ -92,4 +92,8 @@ public abstract class Pet
 	abstract void gettingDirty();
 	abstract void gettingBored();
 	abstract void gettingTired();
+	abstract int getTimeEating();
+	abstract int getTimeSleeping();
+	abstract int getTimeHealthing();
+	abstract int getTimeDiciplining();
 }

@@ -34,7 +34,6 @@ public class Tamagochi extends Pet {
 		File data = new File("current/data.txt");
 		try
 		{
-			data.createNewFile();
 			FileWriter escritor = new FileWriter(data);
 			PrintWriter pw = new PrintWriter(escritor);
 
@@ -405,5 +404,21 @@ public class Tamagochi extends Pet {
 		else if(sum >= 100) this.status[index] = 100;
 		else this.status[index] = sum;
 
+	}
+	public int getTimeEating()
+	{
+		return tt.timeEating();
+	}
+	public int getTimeSleeping()
+	{
+		return tt.timeSleeping();
+	}
+	public int getTimeHealthing()
+	{
+		return tt.timeHealthing();
+	}
+	public int getTimeDiciplining()
+	{
+		return tt.timeDiciplining();
 	}
 }

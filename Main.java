@@ -41,16 +41,23 @@ public class Main
 			currentPet = new Tamagochi(nombre, edad, suenio, hambre,
 						salud, amor, diversion, disciplina, energia, classBelong);
 
-			System.out.println(currentPet.getStatus());
-			System.out.println(currentPet.getMellowing());
+			//System.out.println(currentPet.getStatus());
+			//System.out.println(currentPet.getMellowing());
 
 			InterfazGame g = new InterfazGame(currentPet);
 			g.setVisible(true);
+
+			if(g.showInstructionsAgain())
+			{
+				g.showInstructions();
+			}
+
 		}
 		else
 		{
 			InterfazMenu m = new InterfazMenu();
 			m.setVisible(true);
+			m.showInstructions();
 		}
 	}
 }
