@@ -31,22 +31,25 @@ public class Tamagochi extends Pet {
 		random = new Random();
 	}
 	public void save() {
-		File data = new File("current/data.txt");
+		int noSecreto = 0;
+		Encriptador encriptador = new Encriptador();
 		try
 		{
+			File data = new File("current/data.txt");
+			File inst = new File("current/showhelp.txt");
+			inst.createNewFile();
+			data.createNewFile();
 			FileWriter escritor = new FileWriter(data);
 			PrintWriter pw = new PrintWriter(escritor);
 
-			pw.printf("%s%n", kind);
-			pw.printf("%s%n", name);
-			pw.printf("%s%n", age);
+			String valores = kind+"\n"+name+"\n"+"0\n"+status[0]+"\n"+status[1]+"\n"+status[2]+"\n"+status[3]+"\n"+status[4]+"\n"+status[5]+"\n"+status[6];
+			valores = encriptador.encriptar(valores);
+			noSecreto = encriptador.darNumeroSecreto();
 
-			for(int i = 0; i < status.length; i++) {
-				if(i == status.length - 1) pw.printf("%s", status[i]);
-				else pw.printf("%s%n", status[i]);
-			}
+			pw.print(noSecreto + " ");
+			pw.print(valores);
+
 			escritor.close();
-
 		}
 		catch(IOException ex)
 		{
