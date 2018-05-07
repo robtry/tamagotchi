@@ -600,7 +600,7 @@ public class InterfazGame extends JFrame implements KeyListener, ActionListener
 	{
 		if(currentPet.isAlive())
 		{
-			int n = JOptionPane.showConfirmDialog(this, "Please always show suggestions below \n\nKeep remebering?", "Tip ;)",  JOptionPane.YES_NO_OPTION);
+			int n = JOptionPane.showConfirmDialog(this, "Please always show suggestions below \n\nKeep remembering?", "Tip ;)",  JOptionPane.YES_NO_OPTION);
 			if(n != 0)
 			{
 				File element = new File("current/showhelp.txt");
