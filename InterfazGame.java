@@ -42,7 +42,7 @@ public class InterfazGame extends JFrame implements KeyListener, ActionListener
 	private boolean drawPet, playing, bussy, say;
 	private int op, countTime, stopCountTime, r1;
 	private String petToDraw, statusToDraw, prevPet, prevStatus, menuToDraw;
-	private final int timeUnit = 60000, timeMiniUnit = 1000; //milisegs
+	private final int timeUnit = 3000, timeMiniUnit = 100; //milisegs
 
 
 	public InterfazGame(Pet currentPet) // constructor
@@ -318,13 +318,14 @@ public class InterfazGame extends JFrame implements KeyListener, ActionListener
 			{
 				case 0:
 					//eat
-					if(r1 < 7 || currentPet.status[1] == 100)
+					/*if(r1 < 7 || currentPet.status[1] == 100)
 					{
 						statusToDraw = "draws/general/status/no.txt";
 						say = false;
 					}
+
 					else
-					{
+					{*/
 						stopCountTime = currentPet.getTimeEating();
 						op = rand.nextInt(4);
 						if(op == 0)	statusToDraw = "draws/general/status/eat/muffin.txt";
@@ -334,11 +335,11 @@ public class InterfazGame extends JFrame implements KeyListener, ActionListener
 						currentPet.eat();
 						during.start();
 						say = true;
-					}
+					//}
 				break;
 				case 1:
 					//sleep
-					if(r1 < 3 || currentPet.status[0] == 100)
+					if(r1 < 3 || currentPet.status[0] == 100 && currentPet.status[6]==100)
 					{
 						statusToDraw = "draws/general/status/no.txt";
 						say = false;

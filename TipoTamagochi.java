@@ -4,7 +4,7 @@ public enum TipoTamagochi {
 		pasa el tiempo y se resta.
 	*/
 	//                  eat               sleep               health                love                funny                 discipline            energy
-	PLAYER(new int[] {5, 10, 4}, new int[] {40, 10, 5 }, new int[] {5, 10, 2}, new int[] {5, 10, 0}, new int[] {5, 20, 0}, new int[] {15, 30, 7}, new int[] {15, 40, 0}),
+	PLAYER(new int[] {5, 10, 4}, new int[] {40, 10, 5}, new int[] {5, 10, 2}, new int[] {5, 10, 0}, new int[] {5, 20, 0}, new int[] {15, 30, 7}, new int[] {15, 40, 0}),
 	SLEEPY(new int[] {5, 10, 5}, new int[] {40, 15, 15}, new int[] {5, 10, 2}, new int[] {5, 10, 0}, new int[] {5, 10, 0}, new int[] {15, 15, 5}, new int[] {5 , 40, 0}),
 DELICATE(new int[] {5, 10, 4}, new int[] {40, 10, 5 }, new int[] {5, 15, 5}, new int[] {5, 10, 0}, new int[] {5, 10, 0}, new int[] {15, 15, 5}, new int[] {5 , 10, 0}),
 	LOVELY(new int[] {5, 10, 4}, new int[] {40, 10, 8 }, new int[] {5, 10, 2}, new int[] {5, 15, 0}, new int[] {5, 10, 0}, new int[] {10, 15, 5}, new int[] {10, 10, 0});

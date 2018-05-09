@@ -1,3 +1,13 @@
 \select@language {spanish}
-\contentsline {section}{\tocsection {}{1}{Introducci'on}}{1}
-\contentsline {subsection}{\tocsubsection {}{1.1}{}}{1}
+\contentsline {section}{\tocsection {}{1}{Introducci'on}}{1}{section.1}
+\contentsline {section}{\tocsection {}{2}{La interfaz de inicio}}{1}{section.2}
+\contentsline {subsection}{\tocsubsection {}{2.1}{Perfiles de personajes}}{1}{subsection.2.1}
+\contentsline {section}{\tocsection {}{3}{La pantalla de juego}}{1}{section.3}
+\contentsline {subsection}{\tocsubsection {}{3.1}{Los botones}}{3}{subsection.3.1}
+\contentsline {subsection}{\tocsubsection {}{3.2}{Conociendo las exigencias de tu nueva mascota}}{3}{subsection.3.2}
+\contentsline {subsubsection}{\tocsubsubsection {}{3.2.1}{Comer}}{3}{subsubsection.3.2.1}
+\contentsline {subsubsection}{\tocsubsubsection {}{3.2.2}{Dormir}}{3}{subsubsection.3.2.2}
+\contentsline {subsubsection}{\tocsubsubsection {}{3.2.3}{Jugar}}{3}{subsubsection.3.2.3}
+\contentsline {subsubsection}{\tocsubsubsection {}{3.2.4}{Enfermo}}{3}{subsubsection.3.2.4}
+\contentsline {subsubsection}{\tocsubsubsection {}{3.2.5}{Triste}}{4}{subsubsection.3.2.5}
+\contentsline {subsubsection}{\tocsubsubsection {}{3.2.6}{Latoso}}{4}{subsubsection.3.2.6}
